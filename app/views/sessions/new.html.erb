@@ -4,11 +4,11 @@
   <%= form_with model: @form, url: :session do |f| %>
     <div>
       <%= f.label :email, "メールアドレス" %>
-      <%= f.text_field :email, autocapitalize: "none", autocomplete: "on", autocorrect:"off" %>
+      <%= f.text_field :email, autocapitalize: "none", autocomplete: "on", autocorrect:"off", value: "a@a.a" %>
     </div>
     <div>
       <%= f.label :password, "パスワード" %>
-      <%= f.password_field :password, autocapitalize: "none", autocomplete: "on", autocorrect:"off" %>
+      <%= f.password_field :password, autocapitalize: "none", autocomplete: "on", autocorrect:"off", value: "a+b+c" %>
     </div>
     <div>
       <%= f.submit "ログイン", class: "btn btn-primary" %>
