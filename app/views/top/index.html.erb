@@ -14,6 +14,18 @@ jQuery(function(){
   }, 2000); 
 </script>
 
+<section class="section-set">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <div class="section-title">
+          <%= link_to "ログインして使ってみる", login_path, class: 'btn', id: "middle-login" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="features" class="section-set">
   <div class="container">
     <div class="row">
@@ -49,17 +61,6 @@ jQuery(function(){
   </div>
 </section>
 
-<section id="middle-login" class="section-set">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <div class="section-title">
-          <%= link_to "ログインして使ってみる", login_path %>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <section id="how-to-use" class="section-set">
   <div class="container">
@@ -155,12 +156,12 @@ jQuery(function(){
   </div><!-- end container -->
 </section>
 
-<section id="bottom-login" class="section-set">
+<section class="section-set">
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12 text-center">
         <div class="section-title">
-          <%= link_to "ログインして使ってみる", login_path %>
+          <%= link_to "ログインして使ってみる", login_path, class: 'btn', id: "bottom-login"%>
         </div>
       </div>
     </div>

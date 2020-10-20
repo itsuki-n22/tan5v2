@@ -57,6 +57,12 @@
 #bottom-login,#middle-login{ 
   background: #6666ee;
   border-radius: 20px;
+  width: 100%;
+  padding: 20px;
+}
+#bottom-login:hover,#middle-login:hover{ 
+  background: #4444cc;
+  color: white;
 }
 .featured-item p{ padding: 15px;}
 

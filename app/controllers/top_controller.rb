@@ -1,4 +1,5 @@
 class TopController < Base
+  layout 'top'
   def index
     current_user
     if @current_user
