@@ -31,7 +31,7 @@ class TangoDataController < Base
     tango_datum = @current_user.tango_datum.find_by(tango_id: params[:id])
     if tango_datum
       @trial_count = tango_datum.trial_num
-      @correct_ratio = 1 - ( tango_datum.wrong_num.to_f / tango_datum.trial_num )
+      @correct_ratio = 1 - ( tango_datum.wrong_num.to_f / tango_datum.trial_num ) if tango_datum.trial_num > 0
       @correct_ratio = (@correct_ratio * 100 ).round(2)
       @star = tango_datum.star
     end

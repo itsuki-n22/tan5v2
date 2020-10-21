@@ -243,13 +243,22 @@ jQuery.playWordnote = function(){
 
 
     ////// star
-    $("[id*='star-']").hover(function(){
-      let starNumber = $(this).attr("id").split('-').pop();
-      $.highlightStars(Number(starNumber));
-    });
+    $("[id*='star-']").hover(
+      function(){
+        let starNumber = $(this).attr("id").split('-').pop();
+        $.highlightStars(Number(starNumber));
+      },
+      function (){
+        let starNumber = $("#star-value").val();
+        $.highlightStars(Number(starNumber));
+      }
+    );
+
     $("[id*='star-']").click(function(){
       let starNumber = $(this).attr("id").split('-').pop();
+      $('#star-value').val(starNumber);
       changeTangoData({star: starNumber});
+      $.highlightStars(Number(starNumber));
       $('#flash-message').html('<span class="alert alert-warning">★を ' + starNumber  + ' に設定しました</span>').hide().fadeIn(300);
       $(function(){
         setTimeout("$('.alert.alert-warning').fadeOut('slow')", 500);

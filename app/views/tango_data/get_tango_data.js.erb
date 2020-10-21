@@ -1,11 +1,11 @@
 jQuery(function($){
   $('#trial-count').html("<ruby><rb> <%= @trial_count %> </rb><rp>(</rp><rt> 挑戦 </rt><rp>)</rp></ruby>");
-  $('#correct-ratio').html("<ruby><rb> <%= @correct_ratio.round %>% </rb><rp>(</rp><rt> 正解率</rt><rp>)</rp></ruby>");
+  $('#correct-ratio').html("<ruby><rb> <%= @correct_ratio %>% </rb><rp>(</rp><rt> 正解率</rt><rp>)</rp></ruby>");
   //$.highlightStars(5);
-  let star = 1;
+  let star = 0;
   <% if @star %>
     star = <%= @star %>
   <% end %>
+  $('#star-value').val(star);
   $.highlightStars(star)
-
 });
