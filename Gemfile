@@ -75,4 +75,5 @@ gem 'roo'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'annotate'
-gem 'sorcery'
+gem 'mini_racer'
+
