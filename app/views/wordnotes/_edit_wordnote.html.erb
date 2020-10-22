@@ -27,6 +27,9 @@
           <%= submit_tag "CSV アップロード", class: 'btn btn-primary' %>
         <% end %>
       </div>
+        <%= link_to(wordnote_url(user_id: 0, id: 0) ,id: 'delete-wordnote-btn', method: :delete , data: {confirm: "本当に削除しますか？"}, remote: true) do %>
+          <%= button_tag "単語帳を削除",type: "submit", class: "btn btn-danger" %>
+        <% end %>
   
       <div><span class="btn btn-info modal-close close-btn">閉じる</span></div>
     </div>

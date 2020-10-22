@@ -27,8 +27,10 @@ jQuery.editWordnote = function(){
     dl_url = '/users/' + $('#current_user_id').val() +'/wordnotes/' + $('#edit_wordnote_id').val() +  '/download_csv'
     $('.download-csv').attr('href',dl_url)
     ul_url = '/users/' + $('#current_user_id').val() +'/wordnotes/' + $('#edit_wordnote_id').val() +  '/upload_csv'
+    delete_url = '/wordnotes/' + $('#edit_wordnote_id').val() +'?user_id=' + $('#current_user_id').val()
     $('.upload-csv').attr('href',ul_url)
     $('.upload-csv').attr('action',ul_url)
+    $('#delete-wordnote-btn').attr('ahref',delete_url)
   });
 
   ///if change parameter 
