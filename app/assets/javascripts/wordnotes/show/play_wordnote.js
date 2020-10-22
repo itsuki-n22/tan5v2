@@ -126,10 +126,10 @@ jQuery.playWordnote = function(){
       showAllTangosHtml.click(function(){
         if(tangosHtml.attr('class').match(/hidden/)){
           tangosHtml.removeClass('hidden');
-          showAllTangosHtml.html('<i class="fa fa-window-close"></i>');
+          showAllTangosHtml.html('<i class="fa fa-window-close"></i> 閉じる');
         } else {
           tangosHtml.addClass('hidden');
-          showAllTangosHtml.html('<i class="fa fa-book-open"></i>');
+          showAllTangosHtml.html('<i class="fa fa-book-open"></i> 問題を全て見る');
         };
       });
     }
