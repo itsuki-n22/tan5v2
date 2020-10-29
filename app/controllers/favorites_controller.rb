@@ -6,14 +6,17 @@ class FavoritesController < Base
     @wordnote_id = favorite_params[:wordnote_id]
     if @favorite
       @favorite.destroy
-      render action: "destroy" if @current_user.id.to_s == favorite_params[:user_id] || @current_user.id == @favorite.user_id
+      if @current_user.id.to_s == favorite_params[:user_id] || @current_user.id == @favorite.user_id
+        render action: 'destroy'
+      end
     else
       @current_user.favorite.build(wordnote_id: favorite_params[:wordnote_id]).save
     end
   end
 
-  private 
-    def favorite_params
-      params.require(:favorite).permit(:user_id, :wordnote_id)
-    end
+  private
+
+  def favorite_params
+    params.require(:favorite).permit(:user_id, :wordnote_id)
+  end
 end

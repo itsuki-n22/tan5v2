@@ -1,8 +1,8 @@
 class UsersController < Base
   before_action :current_user
   before_action :logged_in?
-  before_action :correct_user, only: [:edit, :update, :destroy] 
-  before_action :authorize, only: [:new, :create]
+  before_action :correct_user, only: %i[edit update destroy]
+  before_action :authorize, only: %i[new create]
 
   def new
     @user = User.new
@@ -19,15 +19,14 @@ class UsersController < Base
     @favorite_wordnotes = @user.favorite_wordnotes.includes(:user, :tangos)
   end
 
-
-  def create 
+  def create
     @user = User.new(user_params)
     if @user.save
-      flash[:success] = "ユーザーを登録しました"
+      flash[:success] = 'ユーザーを登録しました'
       redirect_to :root
     else
-      flash.now[:danger] = @user.errors.messages.to_a.join("")
-      render action: "new"
+      flash.now[:danger] = @user.errors.messages.to_a.join('')
+      render action: 'new'
     end
   end
 
@@ -36,11 +35,11 @@ class UsersController < Base
     @user = User.find_by(id: params[:id]) if @current_user.admin?
     @user.assign_attributes(user_params)
     if @user.save
-      flash[:success] = "登録情報を更新しました"
+      flash[:success] = '登録情報を更新しました'
       redirect_to user_path(@user)
     else
-      flash.now[:danger] = @user.errors.messages.to_a.join("")
-      render action: "new"
+      flash.now[:danger] = @user.errors.messages.to_a.join('')
+      render action: 'new'
       p @user.errors
     end
   end
@@ -59,7 +58,7 @@ class UsersController < Base
 
   def suspend
     @user = User.find_by(id: params[:id])
-    status = ( @user.suspended? ? false : true )
+    status = (@user.suspended? ? false : true)
     if @user.update_column(:suspended, status)
       flash[:success] = "#{@user.name}:状態を変更しました"
       redirect_to :root
@@ -69,16 +68,16 @@ class UsersController < Base
   def search
     search_word = params[:search_word]
     @users = nil
-    if search_word.strip == ""
+    if search_word.strip == ''
       @users = User.all.eager_load(:wordnotes)
     else
       @users = User.left_outer_joins(:wordnotes).where('wordnotes.subject like ?', "%#{search_word}%").or(User.left_outer_joins(:wordnotes).where('users.name like ?', "%#{search_word}%")).distinct
-      #@users = User.where('users.name like ?', "%#{search_word}%")
+      # @users = User.where('users.name like ?', "%#{search_word}%")
     end
     @users = @users.page(params[:page]).order(updated_at: :desc)
     render 'users/index'
   end
-  
+
   private def user_params
     params.require(:user).permit(
       :email, :password, :name,
@@ -88,19 +87,17 @@ class UsersController < Base
 
   private def correct_user
     if @current_user != User.find_by(id: params[:id]) && @current_user.admin? != true
-      flash[:danger] = "アクセス権がありません"
+      flash[:danger] = 'アクセス権がありません'
       redirect_to :root
     end
   end
   private def authorize
     unless @current_user.admin?
-      flash[:danger] = "管理者としてアクセス権がありません"
+      flash[:danger] = '管理者としてアクセス権がありません'
       redirect_to :root
     end
   end
   private def logged_in?
-    if @current_user == nil
-    redirect_to :root
-    end
+    redirect_to :root if @current_user.nil?
   end
 end

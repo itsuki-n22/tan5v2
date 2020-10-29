@@ -5,7 +5,7 @@ class TopController < Base
     if @current_user
       redirect_to user_path(@current_user)
     else
-      render action: "index"
+      render action: 'index'
     end
   end
 end
