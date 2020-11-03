@@ -26,4 +26,15 @@ div.profile-box {
   background-color: snow;
 }
 
+.header-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 13px;
+}
+.dropdown-toggle::after { content: none !important}
 .favorited { color: orange !important;}
+.btn-search {
+  color: #6666ee !important;
+  border-color: #6666ee !important;
+}
+
