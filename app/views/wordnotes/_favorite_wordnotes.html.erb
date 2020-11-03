@@ -1,37 +1,36 @@
-<h3>お気に入り</h3>
-<table class="table">
-  <% if favorite_wordnotes && favorite_wordnotes.size > 0 %>
-    <tr>
-      <th> 名前 </th>
-      <th> 科目 </th>
-      <th> 単語数 </th>
-      <th> 作者 </th>
-      <% if @user.id == current_user.id %>
-        <th> 削除 </th>
-      <% end %>
-    </tr>
-    <% favorite_wordnotes.each do |wordnote| %>
-      <% if wordnote.is_open == true || @user.id == wordnote.user_id %>
-      <tr id="wordnote-no-<%= wordnote.id %>">
-        <td> <%= link_to wordnote.name, user_wordnote_url(user_id: wordnote.user_id, id: wordnote.id) %> </td>
-        <td> <%= wordnote.subject  %> </td>
-        <td> <%= wordnote.tangos.size  %> </td>
-        <td> <%= link_to wordnote.user.name, user_url(id: wordnote.user_id)  %> </td>
+<% if favorite_wordnotes && favorite_wordnotes.size > 0 %>
+  <h3>お気に入り</h3>
+  <table class="table">
+      <tr>
+        <th> 名前 </th>
+        <th> 科目 </th>
+        <th> 単語数 </th>
+        <th> 作者 </th>
         <% if @user.id == current_user.id %>
-          <td>
-            <%= form_with model: Favorite ,url: change_favorite_path, id: 'favorite-delete-no-' + wordnote.id.to_s, data: {confirm: '本当に削除しますか？'} do |f| %>
-              <%= f.hidden_field :user_id, value: wordnote.user_id %>
-              <%= f.hidden_field :wordnote_id, value: wordnote.id %>
-              <%= button_tag type: "submit", class: "btn" do %>
-                <i class="fa fa-trash"></i>
-              <% end %>
-            <% end %>
-          </td>
+          <th> 削除 </th>
         <% end %>
       </tr>
+      <% favorite_wordnotes.each do |wordnote| %>
+        <% if wordnote.is_open == true || @user.id == wordnote.user_id %>
+        <tr id="wordnote-no-<%= wordnote.id %>">
+          <td> <%= link_to wordnote.name, user_wordnote_url(user_id: wordnote.user_id, id: wordnote.id) %> </td>
+          <td> <%= wordnote.subject  %> </td>
+          <td> <%= wordnote.tangos.size  %> </td>
+          <td> <%= link_to wordnote.user.name, user_url(id: wordnote.user_id)  %> </td>
+          <% if @user.id == current_user.id %>
+            <td>
+              <%= form_with model: Favorite ,url: change_favorite_path, id: 'favorite-delete-no-' + wordnote.id.to_s, data: {confirm: '本当に削除しますか？'} do |f| %>
+                <%= f.hidden_field :user_id, value: wordnote.user_id %>
+                <%= f.hidden_field :wordnote_id, value: wordnote.id %>
+                <%= button_tag type: "submit", class: "btn" do %>
+                  <i class="fa fa-trash"></i>
+                <% end %>
+              <% end %>
+            </td>
+          <% end %>
+        </tr>
+        <% end %>
       <% end %>
-    <% end %>
-  <% else %>
-  <% end %>
-</table>
-
+  </table>
+<% else %>
+<% end %>
