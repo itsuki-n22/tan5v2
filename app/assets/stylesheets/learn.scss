@@ -14,12 +14,12 @@ div#wrapper {
     div#tango-data{
       font-size: x-large;
     }
-    table#questions {
-        //display: none;
+    #questions {
       font-size: 1.2em;
       #delete-btn{
         display: inline;
       }
+      form { margin-bottom: 0px !important}
     }
     .hidden{
       display:none;
@@ -27,6 +27,7 @@ div#wrapper {
     div#learn-operation{
       font-size:3em;
     }
+    div#tango-data div, #learn-operation div{ margin: 1px;}
     div#show-tangos{
       background-color: white;
       width:100%;

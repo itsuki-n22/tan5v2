@@ -5,53 +5,52 @@
   <div class="modal__content">
     <div><i class="fa fa-info-circle"></i> Hint</div>
     <p> <span id="hint-text"></span></p>
-    <div><span class="btn btn-info modal-close">閉じる</span></div>
+    <div><span class="btn btn-outline-info modal-close">閉じる</span></div>
   </div>
 </div>
 <div id="tango-data" style="margin: 0 auto; width:100%;">
-  <ul class="list-group list-group-horizontal text-center">
-    <li class="list-group-item flex-fill">
-    <div id="config-no-<%= @wordnote.id %>" class="c-small"><i class="fa fa-cog "></i></div>
+  <div class="d-flex text-center">
+    <div id="config-no-<%= @wordnote.id %>" class="bg-white round p-3 c-small shadow-sm"><i class="fa fa-cog "></i>
       <%= render partial: "tango_configs/hidden_tags", locals: {wordnote: @wordnote} %>
-    </li>
-    <li class="round list-group-item flex-fill c-small" id="auto-btn"><i class="fa fa-play"></i> play</li>
-    <li class="round list-group-item flex-fill" id="trial-count">0</li>
-    <li class="round list-group-item flex-fill" id="correct-ratio">0</li>
-    <li class="round list-group-item flex-fill icon c-small" id="star-1" ><i class="fa fa-star"></i></li>
-    <li class="round list-group-item flex-fill icon c-small" id="star-2" ><i class="fa fa-star"></i></li>
-    <li class="round list-group-item flex-fill icon c-small" id="star-3" ><i class="fa fa-star"></i></li>
-    <li class="round list-group-item flex-fill icon c-small" id="star-4" ><i class="fa fa-star"></i></li>
-    <li class="round list-group-item flex-fill icon c-small" id="star-5" ><i class="fa fa-star"></i></li>
+    </div>
+    <div class="shadow-sm bg-white p-3 round flex-fill c-small" id="auto-btn"><i class="fa fa-play"></i> play</div>
+    <div class="shadow-sm bg-white p-3 round flex-fill" id="trial-count">0</div>
+    <div class="shadow-sm bg-white p-3 round flex-fill" id="correct-ratio">0</div>
+    <div class="shadow-sm bg-white p-3 round flex-fill icon c-small" id="star-1" ><i class="fa fa-star"></i></div>
+    <div class="shadow-sm bg-white p-3 round flex-fill icon c-small" id="star-2" ><i class="fa fa-star"></i></div>
+    <div class="shadow-sm bg-white p-3 round flex-fill icon c-small" id="star-3" ><i class="fa fa-star"></i></div>
+    <div class="shadow-sm bg-white p-3 round flex-fill icon c-small" id="star-4" ><i class="fa fa-star"></i></div>
+    <div class="shadow-sm bg-white p-3 round flex-fill icon c-small" id="star-5" ><i class="fa fa-star"></i></div>
     <div id="star-value" value="0" class="hidden"></div>
-  </ul>
+  </div>
 </div>
 <div id="learn-wrapper" class="row">
-  <div id="question" class="col-lg-6 col-12"><span id="question-text"></span></div>
-  <div id="answer" class="col-lg-6 col-12"><span id="answer-text"></span></div>
+  <div id="question" class="shadow-sm col-lg-6 col-12"><span id="question-text"></span></div>
+  <div id="answer" class="shadow-sm col-lg-6 col-12"><span id="answer-text"></span></div>
 
 </div>
 <div id="learn-operation" style="margin: 0 auto; width:100%;">
-  <ul class="list-group list-group-horizontal text-center">
-    <li class="round list-group-item flex-fill icon c-small" id="correct-btn"><i class="far fa-circle"></i> 正解</li>
-    <li class="round list-group-item flex-fill icon c-small" id="hint-btn" ><i class="fa fa-info-circle"></i> Hint</li>
-    <li class="round list-group-item flex-fill icon hidden c-small" id="wrong-btn" ><i class="fas fa-times"></i> ミス</li>
-  </ul>
-  <ul class="list-group list-group-horizontal text-center">
-    <li class="round list-group-item flex-fill to-10 c-small"><i class="fas fa-angle-double-left"></i></li>
-    <li class="round list-group-item flex-fill to-1 c-small" ><i class="fas fa-angle-left"></i></li>
-    <li class="round list-group-item flex-fill"><span id="tango-number">1</span></li>
-    <li class="round list-group-item flex-fill to+1 c-small"><i class="fas fa-angle-right"></i></li>
-    <li class="round list-group-item flex-fill to+10 c-small"><i class="fas fa-angle-double-right"></i></li>
-  </ul>
+  <div class="d-flex text-center">
+    <div class="shadow-sm bg-white round flex-fill icon c-small" id="correct-btn"><i class="far fa-circle"></i> 正解</div>
+    <div class="shadow-sm bg-white round flex-fill icon c-small" id="hint-btn" ><i class="fa fa-info-circle"></i> Hint</div>
+    <div class="shadow-sm bg-white round flex-fill icon hidden c-small" id="wrong-btn" ><i class="fas fa-times"></i> ミス</div>
+  </div>
+  <div class="d-flex text-center">
+    <div class="shadow-sm bg-white round flex-fill to-10 c-small"><i class="fas fa-angle-double-left"></i></div>
+    <div class="shadow-sm bg-white round flex-fill to-1 c-small" ><i class="fas fa-angle-left"></i></div>
+    <div class="shadow-sm bg-white round flex-fill"><span id="tango-number">1</span></div>
+    <div class="shadow-sm bg-white round flex-fill to+1 c-small"><i class="fas fa-angle-right"></i></div>
+    <div class="shadow-sm bg-white round flex-fill to+10 c-small"><i class="fas fa-angle-double-right"></i></div>
+  </div>
 </div>
-<div id="show-tangos"> 
+<div id="show-tangos" class="shadow-sm"> 
   <% if @current_user == @user %>
     <i class="fa fa-book-open"></i> 問題を全て見る
   <% end %>
 </div>
 <div id="questions" class="hidden">
   <%= form_with model: @tangos, id: "delete-btn", method: :delete,url: delete_checked_tangos_on_wordnote_path(user_id: @current_user, wordnote_id: @wordnote) do |f| %>
-    <%= f.submit "削除", class: "delete-btn btn-danger" %>
+    <%= f.submit "削除", class: "delete-btn btn btn-outline-danger" %>
   <% end %>
   <table class="table">
     <thead class="thead-light">
