@@ -20,7 +20,7 @@
             <i class="fa fa-calendar"></i> 登録日 <%= @user.created_at.to_s.split(" +").first.split(" ").first %>
           </div>
           <div>
-            <%= link_to "アカウント情報", edit_user_path(@current_user), class: "btn btn-info" %>
+            <%= link_to "アカウント情報変更", edit_user_path(@current_user), class: "btn btn-outline-info" %>
           </div>
         <% end %>
       </div>
