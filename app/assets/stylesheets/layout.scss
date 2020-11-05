@@ -1,6 +1,7 @@
 @import "colors";
 
 html,body{ margin:0; padding:0; height: 100%;}
+.title-logo-img { height: 2.25rem }
 header { 
   padding: 10px;
   background-color: $middle_blue;
@@ -53,4 +54,14 @@ div#wrapper {
   background-color: #fafafa;
   min-height: 100%;
   color: $very_dark_gray;
+}
+
+.user-profile-in-wordnote{
+  text-align: right;
+  img {
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    border: 1px gray solid;
+  }
 }
