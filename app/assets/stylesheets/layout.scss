@@ -77,10 +77,10 @@ div#wrapper {
 }
 
 .blink {
-  animation: blink 0.8s infinite alternate;
+  animation: blink 0.4s infinite alternate;
 }
 
 @keyframes blink{
   from{opacity: 2;}
-  to{opacity: 0.3;}
+  to{opacity: 0.5;}
 }
