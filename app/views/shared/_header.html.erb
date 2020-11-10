@@ -1,29 +1,47 @@
-<header>
-  <span>
-    <%= link_to "tan5", :root, class: "logo" %>
-  </span>
-  <%= 
-    if @title 
-      content_tag(:h1, @title)
-    end
-  %>
-  <span>
-  <%= 
-    if @current_user 
-    else
-      link_to "ログイン", :login , class: "login-button"
-    end
-  %>
-  </span>
-  <span>
-    <% if @current_user #debug %>
-      <%= form_with url: search_users_path, method: :get, local: true do |f| %>
-        <%= f.text_field :search_word, placeholder: "ユーザー検索" %>
-      <% end %>
-        
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="mr-auto">
+    <%= link_to :root, class: "logo navbar-brand" do %>
+      <img class="title-logo-img" src="/tan5-logo.png">
     <% end %>
-  </span>
-</header>
+  </div>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto"></ul>
+    <ul class="navbar-nav">
+      <% if @current_user %>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%= image_tag @current_user.profile_image.url, class: "header-icon" if @current_user.profile_image? %>
+            <%= image_tag '/uploads/user/profile_image/no_data/no_image.png', class: "header-icon" if @current_user.profile_image? == false %>
+            <span class="d-lg-none">
+              <%= @current_user.name if @current_user.name? %>
+              <%= "Guest" if @current_user.name? == false %>
+            </span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <%= link_to edit_user_path(@current_user), class: "dropdown-item" do %>
+              <i class="fas fa-user"> </i> アカウント
+            <% end %>
+            <div class="dropdown-divider"></div>
+            <%= link_to :session, method: :delete, class: "dropdown-item" do %>
+              <i class="fas fa-sign-out-alt"> </i> ログアウト
+            <% end %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+
+    <%= form_with url: search_users_path, method: :get, local: true, class: 'form-inline my-2 my-lg-0'  do |f| %>
+      <%= f.text_field :search_word, placeholder: "ユーザー検索", class: 'form-control mr-sm-2' %>
+      <%= f.submit '検索', class: 'btn btn-outline-success btn-search my-2 my-sm-0' %>
+    <% end %>
+
+  </div>
+</nav>
+
 <div id="flash-message">
   <%= content_tag(:span, flash[:success], class: "alert alert-success") if flash[:success] %>
   <%= content_tag(:span, flash[:danger], class: "alert alert-danger") if flash[:danger] %>

@@ -3,8 +3,8 @@
 <%= render partial: "wordnotes/edit_wordnote" %>
 <div class="container-fluid">
   <div class="row">
-    <div id="user-show-left" class="col-lg-6 col-12">
-      <div class="profile-box">
+    <div id="user-show-left" class="col-lg-6">
+      <div class="profile-box shadow-sm pb-5">
         <div class="user-profile-image">
           <%= image_tag @user.profile_image.url if @user.profile_image? %>
           <%= image_tag '/uploads/user/profile_image/no_data/no_image.png' if @user.profile_image? == false %>
@@ -20,18 +20,34 @@
             <i class="fa fa-calendar"></i> 登録日 <%= @user.created_at.to_s.split(" +").first.split(" ").first %>
           </div>
           <div>
-            <%= link_to "アカウント情報", edit_user_path(@current_user), class: "btn btn-info" %>
+            <%= link_to "アカウント情報変更", edit_user_path(@current_user), class: "btn btn-outline-info" %>
           </div>
         <% end %>
       </div>
 
         <% if @current_user == @user %>
-          <div class="user-config">
-            <div id="wordnote_register" class="container">
-              <%= render "wordnotes/form" , wordnotes: @wordnotes, current_user: @current_user %>
+          <div class="user-config shadow-sm">
+            <div id="build-wordnote-btn" class="mt-1 w-100 btn btn-outline-primary" style="font-size: x-large"><i class="fas fa-book"></i> 単語帳を作成</div>
+            <% if @wordnotes != nil && @wordnotes.size == 1 && @wordnotes.first.tangos.size == 0 %>
+              <div id="add-tango-btn" class="mt-2 w-100 btn btn-outline-secondary blink" style="font-size: x-large"><i class="fas fa-file"></i> 単語を登録　</div>
+            <% elsif @wordnotes.size > 0 %>
+              <div id="add-tango-btn" class="mt-2 w-100 btn btn-outline-secondary" style="font-size: x-large"><i class="fas fa-file"></i> 単語を登録　</div>
+            <% end %>
+            <div id="build-wordnote-window" class="modal">
+              <div class="modal__bg modal-close"></div>
+              <div class="modal__content">
+                <div id="wordnote_register" class="container">
+                  <%= render "wordnotes/form" , wordnotes: @wordnotes, current_user: @current_user %>
+                </div>
+              </div>
             </div>
-            <div id="tango_register" class="container">
-              <%= render "tangos/form" , tango: @tango, wordnotes: @wordnotes, current_user: @current_user %>
+            <div id="add-tango-window" class="modal">
+              <div class="modal__bg modal-close"></div>
+              <div class="modal__content">
+                <div id="tango_register" class="container">
+                  <%= render "tangos/form" , tango: @tango, wordnotes: @wordnotes, current_user: @current_user %>
+                </div>
+              </div>
             </div>
           </div>
         <% end %>
@@ -39,9 +55,11 @@
           <%= render "wordnotes/favorite_wordnotes" , favorite_wordnotes: @favorite_wordnotes, current_user: @current_user %>
         </div>
       </div>
-      <div id="categories" class="col-lg-6 col-12">
-        <%= render partial: "/wordnotes/list", locals: { wordnotes: @wordnotes , user: @user} %>
-      </div>
+      <% if @wordnotes.size > 0 %>
+        <div id="categories" class="col-lg-6">
+          <%= render partial: "/wordnotes/list", locals: { wordnotes: @wordnotes , user: @user} %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
@@ -52,5 +70,15 @@
   <script>
     jQuery(function(){ $.editWordnote() ;});
     jQuery(function(){ $.changeFavorite() ;});
+    $(document).on('click','#add-tango-btn',function(){
+      $('#add-tango-window').fadeIn();
+    });
+    $(document).on('click','#build-wordnote-btn',function(){
+      $('#build-wordnote-window').fadeIn();
+    });
+    
+  $('#add-tango-window .modal-close, #build-wordnote-window .modal-close').on('click',function(){
+    $('.modal').fadeOut();
+  });
   </script>
 </div>

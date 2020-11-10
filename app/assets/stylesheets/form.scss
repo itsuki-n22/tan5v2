@@ -41,7 +41,7 @@ div#wrapper {
     div.favorites-list{
       max-width: 700px;
       margin: 0 auto;
-      padding: 10px;
+      padding: 0px;
       border-radius: 10px;
       background-color: snow;
     }
@@ -57,8 +57,6 @@ div#wrapper {
         border-radius: 10px;
         font-size: 25px;
         height: 2.5em;
-        border-bottom: none;
-        margin-bottom: 25px;
       }
       input.btn-primary{
         color: white;
@@ -203,7 +201,7 @@ div#wordnote_register {
     }
   
 }
-#edit-user-form,#wordnote_register,#tango_register,.profile-box{
+#edit-user-form,#wordnote_register,#tango_register,.profile-box, .user-config{
     max-width: 700px;
     background-color: #fff;
     margin-bottom: 20px;

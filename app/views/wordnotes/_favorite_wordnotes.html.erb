@@ -1,37 +1,47 @@
-<h3>お気に入り</h3>
-<table class="table">
-  <% if favorite_wordnotes && favorite_wordnotes.size > 0 %>
-    <tr>
-      <th> 名前 </th>
-      <th> 科目 </th>
-      <th> 単語数 </th>
-      <th> 作者 </th>
-      <% if @user.id == current_user.id %>
-        <th> 削除 </th>
-      <% end %>
-    </tr>
-    <% favorite_wordnotes.each do |wordnote| %>
-      <% if wordnote.is_open == true || @user.id == wordnote.user_id %>
-      <tr id="wordnote-no-<%= wordnote.id %>">
-        <td> <%= link_to wordnote.name, user_wordnote_url(user_id: wordnote.user_id, id: wordnote.id) %> </td>
-        <td> <%= wordnote.subject  %> </td>
-        <td> <%= wordnote.tangos.size  %> </td>
-        <td> <%= link_to wordnote.user.name, user_url(id: wordnote.user_id)  %> </td>
-        <% if @user.id == current_user.id %>
-          <td>
-            <%= form_with model: Favorite ,url: change_favorite_path, id: 'favorite-delete-no-' + wordnote.id.to_s, data: {confirm: '本当に削除しますか？'} do |f| %>
-              <%= f.hidden_field :user_id, value: wordnote.user_id %>
-              <%= f.hidden_field :wordnote_id, value: wordnote.id %>
-              <%= button_tag type: "submit", class: "btn" do %>
-                <i class="fa fa-trash"></i>
+<% if favorite_wordnotes && favorite_wordnotes.size > 0 %>
+<h4 class="display-4" id="user-show-favorites-title">お気に入り</h3>
+<div class="row m-0">
+  <% favorite_wordnotes.each do |wordnote| %>
+    <% if wordnote.is_open == true || @current_user.id == wordnote.user_id %>
+      <div class="wordnote-card col-md-6 p-2" id="wordnote-no-<%= wordnote.id %>">
+        <div class="card">
+          <div class="card-header <%= 'not-open' if wordnote.is_open == false %>"> 
+            <div class="d-flex">
+              <div class="align-self-center" style="font-size: large; max-width: 70%;"><%= link_to wordnote.name, user_wordnote_url(user_id: wordnote.user.id, id: wordnote.id) %></div>
+              <% if @current_user.id == @user.id %>
+              <div class="ml-auto">
+                <%= form_with model: Favorite ,url: change_favorite_path, class: "fav-btn", id: 'favorite-delete-no-' + wordnote.id.to_s, data: {confirm: '本当に削除しますか？'} do |f| %>
+                  <%= f.hidden_field :user_id, value: wordnote.user_id %>
+                  <%= f.hidden_field :wordnote_id, value: wordnote.id %>
+                  <%= button_tag type: "submit", class: "btn" do %>
+                    <i class="fa fa-trash"></i>
+                  <% end %>
+                <% end %>
+              </div>
               <% end %>
-            <% end %>
-          </td>
-        <% end %>
-      </tr>
-      <% end %>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-6">
+                <div class="card-text">　科目: <%= wordnote.subject  %> </div>
+                <div class="card-text">問題数: <%= wordnote.tangos.size  %> </div>
+              </div>
+              <div class="col-6">
+                <%= link_to user_path(wordnote.user) do %>
+                  <div class="user-profile-in-wordnote">
+                    <img src="<%= wordnote.user.profile_image  %>">
+                    <div><%= wordnote.user.name %> </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     <% end %>
-  <% else %>
   <% end %>
-</table>
+</div>
+<% else %>
+<% end %>
 

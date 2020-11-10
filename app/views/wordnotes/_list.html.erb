@@ -1,34 +1,45 @@
 <% if @wordnotes.size > 0 %>
-<h3>作成した単語帳</h3>
-  <table class="table">
-    <tr>
-      <th> 名前 </th>
-      <th> 科目 </th>
-      <th> 単語数 </th>
-      <% if @current_user == @user %>
-        <th> 編集 </th>
-      <% end %>
-      <th> お気に入り </th>
-    </tr>
-    <% @wordnotes.each do |wordnote| %>
-      <% if wordnote.is_open == true || @current_user.id == wordnote.user_id %>
-      <tr id="wordnote-no-<%= wordnote.id %>">
-        <td <%= 'class=not-open' if wordnote.is_open == false %>> <%= link_to wordnote.name, user_wordnote_url(user_id: user.id, id: wordnote.id) %> </td>
-        <td> <%= wordnote.subject  %> </td>
-        <td> <%= wordnote.tangos.size  %> </td>
-        <% if @current_user.id == wordnote.user_id %>
-          <td>
-          <button class="btn " id="edit-no-<%= wordnote.id %>"><i class="fa fa-book"></i></button> 
-          <%= render partial: "wordnotes/hidden_tags", locals: {wordnote: wordnote} %>
-          </td>
-        <% end %>
-        <td>
-          <%= render partial: "favorites/fav_btn", locals: {wordnote: wordnote, user: @user, current_user: @current_user} %>
-        </td>
-      </tr>
-      <% end %>
+<div style="max-width: 700px; margin: 0 auto;">
+<h4 class="display-4" id="user-show-wordnotes-title">単語帳</h3>
+<div class="row m-0">
+  <% @wordnotes.each do |wordnote| %>
+    <% if wordnote.is_open == true || @current_user.id == wordnote.user_id %>
+      <div class="wordnote-card col-md-6 p-2" id="wordnote-no-<%= wordnote.id %>">
+        <div class="card">
+          <div class="card-header <%= 'not-open' if wordnote.is_open == false %>"> 
+            <div class="d-flex">
+              <div class="align-self-center" style="max-width: 70%; font-size: large;" ><%= link_to wordnote.name, user_wordnote_url(user_id: user.id, id: wordnote.id) %></div>
+              <div class="ml-auto"><%= render partial: "favorites/fav_btn", locals: {wordnote: wordnote, user: @user, current_user: @current_user} %></div>
+              <% if @current_user.id == wordnote.user_id %>
+                <div>
+                  <button class="btn edit-wordnote-btn " id="edit-no-<%= wordnote.id %>"><i class="fa fa-book"></i></button> 
+                  <%= render partial: "wordnotes/hidden_tags", locals: {wordnote: wordnote} %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-6">
+                <div class="card-text">　科目: <%= wordnote.subject  %> </div>
+                <div class="card-text">問題数: <%= wordnote.tangos.size  %> </div>
+              </div>
+              <div class="col-6">
+                <%= link_to user_path(wordnote.user) do %>
+                  <div class="user-profile-in-wordnote">
+                    <img src="<%= wordnote.user.profile_image  %>">
+                    <div><%= wordnote.user.name %> </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     <% end %>
-  </table>
+  <% end %>
+</div>
+</div>
 <% else %>
 <% end %>
 
