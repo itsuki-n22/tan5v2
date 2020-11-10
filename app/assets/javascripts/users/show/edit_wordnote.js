@@ -30,7 +30,7 @@ jQuery.editWordnote = function(){
     delete_url = '/wordnotes/' + $('#edit_wordnote_id').val() +'?user_id=' + $('#current_user_id').val()
     $('.upload-csv').attr('href',ul_url)
     $('.upload-csv').attr('action',ul_url)
-    $('#delete-wordnote-btn').attr('ahref',delete_url)
+    $('#delete-wordnote-btn').attr('href',delete_url)
   });
 
   ///if change parameter 

@@ -1,7 +1,17 @@
 @import "colors";
-
+* {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+.d-flex:not(.flex-column)>* {
+    min-width: 0;
+}
+.d-flex.flex-column>* {
+    max-width: 100%;
+}
 html,body{ margin:0; padding:0; height: 100%;}
 .title-logo-img { height: 2.25rem }
+a:hover{text-decoration: none !important;}
 header { 
   padding: 10px;
   background-color: $middle_blue;
@@ -64,4 +74,13 @@ div#wrapper {
     height: 25px;
     border: 1px gray solid;
   }
+}
+
+.blink {
+  animation: blink 0.8s infinite alternate;
+}
+
+@keyframes blink{
+  from{opacity: 2;}
+  to{opacity: 0.3;}
 }

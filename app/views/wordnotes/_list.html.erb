@@ -1,5 +1,6 @@
 <% if @wordnotes.size > 0 %>
-<h4 class="display-4">Wordnotes</h3>
+<div style="max-width: 700px; margin: 0 auto;">
+<h4 class="display-4" id="user-show-wordnotes-title">単語帳</h3>
 <div class="row m-0">
   <% @wordnotes.each do |wordnote| %>
     <% if wordnote.is_open == true || @current_user.id == wordnote.user_id %>
@@ -7,11 +8,11 @@
         <div class="card">
           <div class="card-header <%= 'not-open' if wordnote.is_open == false %>"> 
             <div class="d-flex">
-              <div class="align-self-center"><%= link_to wordnote.name, user_wordnote_url(user_id: user.id, id: wordnote.id) %></div>
+              <div class="align-self-center" style="max-width: 70%; font-size: large;" ><%= link_to wordnote.name, user_wordnote_url(user_id: user.id, id: wordnote.id) %></div>
               <div class="ml-auto"><%= render partial: "favorites/fav_btn", locals: {wordnote: wordnote, user: @user, current_user: @current_user} %></div>
               <% if @current_user.id == wordnote.user_id %>
                 <div>
-                  <button class="btn " id="edit-no-<%= wordnote.id %>"><i class="fa fa-book"></i></button> 
+                  <button class="btn edit-wordnote-btn " id="edit-no-<%= wordnote.id %>"><i class="fa fa-book"></i></button> 
                   <%= render partial: "wordnotes/hidden_tags", locals: {wordnote: wordnote} %>
                 </div>
               <% end %>
@@ -37,6 +38,7 @@
       </div>
     <% end %>
   <% end %>
+</div>
 </div>
 <% else %>
 <% end %>

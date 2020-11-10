@@ -28,7 +28,11 @@
         <% if @current_user == @user %>
           <div class="user-config shadow-sm">
             <div id="build-wordnote-btn" class="mt-1 w-100 btn btn-outline-primary" style="font-size: x-large"><i class="fas fa-book"></i> 単語帳を作成</div>
-            <div id="add-tango-btn" class="mt-2 w-100 btn btn-outline-secondary" style="font-size: x-large"><i class="fas fa-file"></i> 単語を登録　</div>
+            <% if @wordnotes != nil && @wordnotes.size == 1 && @wordnotes.first.tangos.size == 0 %>
+              <div id="add-tango-btn" class="mt-2 w-100 btn btn-outline-secondary blink" style="font-size: x-large"><i class="fas fa-file"></i> 単語を登録　</div>
+            <% elsif @wordnotes.size > 0 %>
+              <div id="add-tango-btn" class="mt-2 w-100 btn btn-outline-secondary" style="font-size: x-large"><i class="fas fa-file"></i> 単語を登録　</div>
+            <% end %>
             <div id="build-wordnote-window" class="modal">
               <div class="modal__bg modal-close"></div>
               <div class="modal__content">
@@ -51,9 +55,11 @@
           <%= render "wordnotes/favorite_wordnotes" , favorite_wordnotes: @favorite_wordnotes, current_user: @current_user %>
         </div>
       </div>
-      <div id="categories" class="col-lg-6">
-        <%= render partial: "/wordnotes/list", locals: { wordnotes: @wordnotes , user: @user} %>
-      </div>
+      <% if @wordnotes.size > 0 %>
+        <div id="categories" class="col-lg-6">
+          <%= render partial: "/wordnotes/list", locals: { wordnotes: @wordnotes , user: @user} %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
