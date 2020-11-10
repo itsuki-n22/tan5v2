@@ -4,7 +4,7 @@
   <% favorite_wordnotes.each do |wordnote| %>
     <% if wordnote.is_open == true || @current_user.id == wordnote.user_id %>
       <div class="wordnote-card col-md-6 p-2" id="wordnote-no-<%= wordnote.id %>">
-        <div class="card">
+        <div class="card" style="height:100%">
           <div class="card-header <%= 'not-open' if wordnote.is_open == false %>"> 
             <div class="d-flex">
               <div class="align-self-center" style="font-size: large; max-width: 70%;"><%= link_to wordnote.name, user_wordnote_url(user_id: wordnote.user.id, id: wordnote.id) %></div>
