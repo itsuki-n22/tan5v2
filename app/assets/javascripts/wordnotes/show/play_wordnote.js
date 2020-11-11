@@ -402,4 +402,16 @@ jQuery.playWordnote = function(){
       return escape[match];
     });
   }
+  ///// キーボード操作
+  $(document).keyup(function(event){
+    if (event.keyCode === 39){
+      changeTangoStatus();
+      resetTimer();
+    }
+    if (event.keyCode === 37){
+      changeTangoNumber(-1);
+      setTango();
+      resetTimer();
+    }
+  });
 };
