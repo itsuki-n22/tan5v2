@@ -1,0 +1,27 @@
+@import "colors";
+
+#edit-user-form{
+  max-width: 700px;
+  margin: 0 auto;
+}
+h4#edit-user-form-title{
+  position: relative;
+  background: #f1f8ff;
+  padding: 0.25em 0.5em;
+  border-left: solid 2em #5c9ee7;
+  margin-top: 0.5em;
+  border-radius: 10px;
+}
+
+h4#edit-user-form-title:before {
+  font-family: "Font Awesome 5 Free";
+  content: "\f007"; 
+  position: absolute;
+  padding: 0em;
+  color: white;
+  font-weight: 900;
+  left: -1.45em;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
