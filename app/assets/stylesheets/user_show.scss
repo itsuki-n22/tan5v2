@@ -59,7 +59,7 @@ h4#user-show-favorites-title {
   border-radius: 10px;
 }
 
-h4#user-show-wordnotes-title {
+h4#user-show-wordnotes-title, h4#user-index-title {
   position: relative;
   background: #f1f8ff;
   padding: 0.25em 0.5em;
@@ -81,9 +81,8 @@ h4#user-show-favorites-title:before {
   transform: translateY(-50%);
 }
 
-h4#user-show-wordnotes-title:before {
+h4#user-show-wordnotes-title:before, h4#user-index-title:before {
   font-family: "Font Awesome 5 Free";
-  content: "\f02d";
   position: absolute;
   padding: 0em;
   color: white;
@@ -93,6 +92,8 @@ h4#user-show-wordnotes-title:before {
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
 }
+h4#user-show-wordnotes-title:before{ content: "\f02d";}
+h4#user-index-title:before { content: "\f007"; }
 
 #user-show-left{
   margin: 0 auto;
