@@ -60,7 +60,7 @@ jQuery.playWordnote = function(){
   let displayInterval;
   let displayCounter = 3;
   if(interval > 0){ 
-    runTimer(interval);
+    //runTimer(interval);
     displayCounter = interval;
   }
   controlTimer();
