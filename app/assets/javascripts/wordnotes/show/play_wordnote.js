@@ -149,6 +149,15 @@ jQuery.playWordnote = function(){
     });
 
     /// edit tango
+    $(document).on({
+      'mouseenter':function(){
+        $(this).find("[class*='fa-edit']").removeClass("hidden");
+      },
+      'mouseleave':function(){
+        $(this).find("[class*='fa-edit']").addClass("hidden");
+      }
+    },"[class='hint'], [class='answer'], [class='question']");
+
     $(document).on('click',"[id*='tango-no-'] > td > [class*='fa-edit']", function(){
       let attr = $(this).parent().attr('class');
       let value = $(this).parent().text();
@@ -177,7 +186,7 @@ jQuery.playWordnote = function(){
       $(this).parent().siblings().children("textarea").each(function(){
         let value = $(this).attr('default');
         if (value === undefined){ value = "" }
-        value = value + "<i class='fas fa-edit fa-xs ml-1'></i>";
+        value = value + "<i class='fas fa-edit fa-xs ml-1 hidden'></i>";
         let attr = $(this).attr("class").split("_").pop();
         $(this).parent().addClass(attr).html(value);
       });

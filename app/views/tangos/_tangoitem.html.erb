@@ -1,9 +1,9 @@
 
 <td><input type="checkbox" id="delete-check-<%= tango.id %>"></td>
 <td class='id hidden'><%= tango.id %></td>
-<td class='question'><%= tango.question %><i class="fas fa-edit fa-xs ml-1"></i></td>
-<td class='answer'><%= tango.answer %><i class="fas fa-edit fa-xs ml-1"></i></td>
-<td class='hint'><%= tango.hint %><i class="fas fa-edit fa-xs ml-1"></i></td>
+<td class='question'><%= tango.question %><i class="fas fa-edit fa-xs ml-1 hidden"></i></td>
+<td class='answer'><%= tango.answer %><i class="fas fa-edit fa-xs ml-1 hidden"></i></td>
+<td class='hint'><%= tango.hint %><i class="fas fa-edit fa-xs ml-1 hidden"></i></td>
 <td class='created_at small'><span class="created_at-text"><%= tango.created_at.to_s.split(" ").first %></span>
 <%= form_with model: tango, method: :patch,url: tango_path(user_id: @current_user, wordnote_id: @wordnote.id ,id: tango.id) do |f| %>
 <%= f.hidden_field :question, value: tango.question %>
