@@ -1,17 +1,17 @@
 <% @title = "tan5にログイン" %>
-<h1 class="login-input-form"><%= @title %></h1>
-<div id="login-input-form">
+<div id="login-form">
+  <h1 id="login-form-title"><%= @title %></h1>
   <%= form_with model: @form, url: :session do |f| %>
-    <div>
-      <%= f.label :email, "メールアドレス" %>
-      <%= f.text_field :email, autocapitalize: "none", autocomplete: "on", autocorrect:"off", value: "a@a.a" %>
+    <div class="form-group">
+      <%= f.label :email, "メールアドレス(必須)", class: "bmd-label-floating" %>
+      <%= f.email_field :email, size: 32, required: true, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :password, "パスワード(必須)", class: "required bmd-label-floating" %>
+      <%= f.password_field :password, size: 32, required: true, class: "form-control" %>
     </div>
     <div>
-      <%= f.label :password, "パスワード" %>
-      <%= f.password_field :password, autocapitalize: "none", autocomplete: "on", autocorrect:"off", value: "a+b+c" %>
-    </div>
-    <div>
-      <%= f.submit "ログイン", class: "btn btn-primary" %>
+      <%= f.submit "ログイン", class: "btn btn-outline-primary" %>
     </div>
   <% end %>
 </div>
