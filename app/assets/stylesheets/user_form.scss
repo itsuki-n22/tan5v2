@@ -1,15 +1,19 @@
 @import "colors";
 
 #edit-user-form{
-  max-width: 700px;
+  max-width: 1000px;
   margin: 0 auto;
+  padding: 1em;
+  .form-group {
+    margin-bottom: 2rem;
+  }
 }
 h4#edit-user-form-title{
   position: relative;
   background: #f1f8ff;
   padding: 0.25em 0.5em;
   border-left: solid 2em #5c9ee7;
-  margin-top: 0.5em;
+  margin: 0.5em 0 2em;
   border-radius: 10px;
 }
 
