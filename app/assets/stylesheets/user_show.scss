@@ -1,18 +1,13 @@
-div.profile-box {
+div#profile-box {
   margin: 15px auto ;
   text-align:center;
   font-size: x-large;
-  h1 {
-    font-size: xx-large;
-  }
-
-
-
+  background: white;
+  border-radius: 10px;
 
   .user-profile {
     margin: 0 auto ;
     width: 80%;
-
   }
   .user-profile-image img{
     border-radius: 50%;
@@ -23,20 +18,18 @@ div.profile-box {
   div{margin-bottom:10px;}
 }
 
-.user-config{
+#user-show-register-btns{
   margin: 15px auto;
+  padding: 0.5em 1em;
+  background: white;
+  border-radius: 10px;
 }
 
 .not-open::after{
   content: "🔒";
-  
-  
 }
-#categories {
+#created-wordnotes {
   margin: 0 auto;
-  padding: 0px;
-  border-radius: 10px;
-  background-color: snow;
 }
 
 .header-icon {

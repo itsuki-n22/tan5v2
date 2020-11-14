@@ -159,6 +159,7 @@ jQuery.playWordnote = function(){
     },"[class='hint'], [class='answer'], [class='question']");
 
     $(document).on('click',"[id*='tango-no-'] > td > [class*='fa-edit']", function(){
+      let td = $(this).parent();
       let attr = $(this).parent().attr('class');
       let value = $(this).parent().text();
       if (!attr){} else if (attr.length > 1){
@@ -172,6 +173,7 @@ jQuery.playWordnote = function(){
             default: htmlEscape(value)
           }).val(value);
           $(this).parent().html(textarea);
+          td.find('textarea').height((td.find('textarea').get(0).scrollHeight));
         };
       };
     });
