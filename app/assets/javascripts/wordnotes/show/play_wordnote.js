@@ -112,7 +112,7 @@ jQuery.playWordnote = function(){
     answerHtml.addClass('hidden'); 
     answerBoxHtml.addClass('blink'); 
     questionHtml.text(tangoArray[tangoNumber].question);
-    answerHtml.html(htmlEscape(tangoArray[tangoNumber].answer.replace(/\n/g,"<br>")));
+    answerHtml.html(htmlEscape(tangoArray[tangoNumber].answer).replace(/\n/g,"<br>"));
     hintHtml.text(' ' + tangoArray[tangoNumber].hint);
     wrongBtnHtml.addClass('hidden');
     correctBtnHtml.addClass('hidden');
