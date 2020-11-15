@@ -1,12 +1,12 @@
-#edit-wordnote-form{
-  max-width: 1000px;
+@import "colors";
+
+#create-tango-form{
   margin: 0 auto;
-  padding: 1em;
   .form-group {
     margin-bottom: 2rem;
   }
 }
-h4#edit-wordnote-form-title{
+h4#create-tango-form-title{
   position: relative;
   background: #f1f8ff;
   padding: 0.25em 0.5em;
@@ -15,9 +15,9 @@ h4#edit-wordnote-form-title{
   border-radius: 10px;
 }
 
-h4#edit-wordnote-form-title:before{
+h4#create-tango-form-title:before {
   font-family: "Font Awesome 5 Free";
-  content: "\f518"; 
+  content: "\f303"; 
   position: absolute;
   padding: 0em;
   color: white;
@@ -26,18 +26,4 @@ h4#edit-wordnote-form-title:before{
   top: 50%;
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
-}
-
-#csv-control-panel {
-  margin-top: 2em;
-  position   : relative;  
-}
-
-#csv-upload-explain{
-  position   : absolute;
-  padding: 5px;
-  background-color: snow;
-  width: 100%;
-  top: 50%;
-  z-index: 5;
 }

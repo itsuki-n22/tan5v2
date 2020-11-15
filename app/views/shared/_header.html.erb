@@ -37,7 +37,9 @@
     <% if @current_user %>
       <%= form_with url: search_users_path, method: :get, local: true, class: 'form-inline my-2 my-lg-0'  do |f| %>
         <%= f.text_field :search_word, placeholder: "ユーザー検索", class: 'form-control mr-sm-2' %>
-        <%= f.submit '検索', class: 'btn btn-outline-success btn-search my-2 my-sm-0' %>
+        <%= button_tag type: "submit", class: 'btn btn-outline-success btn-search my-2 my-sm-0' do %>
+          <i class="fas fa-search"></i>
+        <% end %>
       <% end %>
     <% end %>
 

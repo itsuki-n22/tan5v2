@@ -3,8 +3,8 @@ jQuery.learnConfig = function(){
   /// show tango config panel
   let changedFlagForLearn = false;
   $(document).on('click','[id*="config-no-"]',function(){
-    $('#config-window').fadeIn();
-    let configList = $(this).siblings();
+    $('#tango-config-window').fadeIn();
+    let configList = $(this).find("input");
     let wordnoteId = $(this).attr("id").split("-").pop();
     $('#tango_config_wordnote_id').val(wordnoteId)
     $.each(configList,function(){
@@ -28,7 +28,7 @@ jQuery.learnConfig = function(){
     });
   });
 
-  $('#tango-config').on('change','.config-item',function(){
+  $('#edit-tango-config-form').on('change','.config-item',function(){
     changedFlagForLearn = true;
     let id = $(this).attr("id");
     let val = $(this).val();
@@ -61,9 +61,9 @@ jQuery.learnConfig = function(){
     });
   };
   /// modal close
-  $('#config-window .modal-close').on('click',function(){
+  $('#tango-config-window .modal-close').on('click',function(){
     if( $('#learn-wrapper').length > 0 && changedFlagForLearn == true){
-      $('#tango-config').html('<p>適用中...</p>');
+      $('#edit-tango-config-form').html('<p>適用中...</p>');
       location.reload();
     }else{
       $('.modal').fadeOut();

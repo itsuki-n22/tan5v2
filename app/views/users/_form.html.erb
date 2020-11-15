@@ -22,7 +22,20 @@
     <%= f.hidden_field :profile_image_chache %>
   </div>
 </div>
-<%= f.submit "登録", class: "btn btn-outline-primary" %>
-<%= link_to "キャンセル", :root, class: "btn btn-outline-secondary" %>
+<div class="d-flex mt-5">
+  <div>
+  <%= f.submit "登録", class: "btn btn-raised btn-primary" %>
+  </div>
+  <div class="ml-3">
+  <%= link_to :root, class: "btn btn-outline-secondary" do %>
+    <i class="fas fa-window-close"></i> キャンセル
+  <% end %>
+  </div>
+  <div class="ml-auto">
+  <%= link_to :session, method: :delete, class: "logout-btn btn btn-outline-info" do %>
+    <i class="fas fa-sign-out-alt"></i> ログアウト
+  <% end %>
+  </div>
+</div>
 
 <%= javascript_include_tag 'users/edit/apply_preview_image' %>

@@ -3,7 +3,7 @@ jQuery.editWordnote = function(){
   /// show wordnote config panel
   let changedFlagForWordnote = false;
   $(document).on('click','[id*="edit-no-"]',function(){
-    $('#edit-window').fadeIn();
+    $('#edit-wordnote-window').fadeIn();
     let editList = $(this).siblings();
     let wordnoteId = $(this).attr("id").split("-").pop();
     $('#edit_wordnote_id').val(wordnoteId)
@@ -33,9 +33,23 @@ jQuery.editWordnote = function(){
     $('#delete-wordnote-btn').attr('href',delete_url)
   });
 
-  ///if change parameter 
+  /// detail-btn to show csv btns and delete btn
+  $('#wordnote-detail-show-btn').on("click",function(){ 
+    $('#csv-control-panel, #wordnote-delete-btn').removeClass("hidden")
+    $(this).addClass("hidden");
+  })
 
-  $('#edit-window').on('change','.edit-item',function(){
+  ///if change parameter 
+  $('#edit-wordnote-window').on({
+    'mouseenter' : function(){
+      $('#csv-upload-explain').removeClass("hidden")
+    },
+    'mouseleave' : function(){
+      $('#csv-upload-explain').addClass("hidden")
+    }
+   },'#csv-upload-explain-trigger')
+
+  $('#edit-wordnote-window').on('change','.edit-item',function(){
     changedFlagForWordnote = true;
     let id = $(this).attr("id");
     let val = $(this).val();
@@ -65,9 +79,9 @@ jQuery.editWordnote = function(){
     });
   };
   /// modal close
-  $('#edit-window .modal-close').on('click',function(){
+  $('#edit-wordnote-window .modal-close').on('click',function(){
     if( changedFlagForWordnote == true){
-      $('#wordnote-edit').html('<p>適用中...</p>');
+      $('#edit-wordnote-form').html('<p>適用中...</p>');
       location.reload();
     }else{
       $('.modal').fadeOut();

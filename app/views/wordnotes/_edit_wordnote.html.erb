@@ -1,37 +1,47 @@
-<div id="edit-window" class="modal">
+<div id="edit-wordnote-window" class="modal">
   <div class="modal__bg modal-close"></div>
   <div class="modal__content">
-    <div id="wordnote-edit">
-      <h3> 単語帳編集 </h3>
+    <div id="edit-wordnote-form">
+      <h4 id="edit-wordnote-form-title">単語帳編集</h4>
 
       <input id="edit_wordnote_id" type="hidden">
-      <div>
-      <%= label_tag :wordnote_name, "単語帳名前" %>
-      <input id="name" class="edit-item">
+      <div class="form-group">
+        <%= label_tag :wordnote_name, "単語帳名前", class: "bmd-label-floating" %>
+        <%= text_field_tag :name, nil, required: true, value: nil, class: "edit-item form-control" %>
+      </div>
+      <div class="form-group">
+        <%= label_tag :wordnote_subject, "科目", class: "bmd-label-floating" %>
+        <%= text_field_tag :subject, nil, required: true, value: nil, class: "edit-item form-control" %>
       </div>
       <div>
-      <%= label_tag :wordnote_subject, "科目" %>
-      <input id="subject" class="edit-item">
+        <%= check_box_tag :is_open, false, nil,{class: "edit-item"} %> <%= label_tag :continue, "公開する", class: "bmd-label-floating" %>
       </div>
-      <div>
-      <%= label_tag :is_open, "公開する" %>
-      <%= check_box_tag :is_open, false, nil,{class: "edit-item"} %>
+
+      <div class="form-group hidden" id="csv-control-panel">
+        <div>
+          <label class="bmd-label-floating d-block">単語をCSVデータでダウンロード</label>
+          <%= link_to "<i class='fas fa-download'></i> CSV ダウンロード".html_safe, user_wordnote_download_csv_path(user_id:0, wordnote_id:0), class: 'download-csv btn btn-outline-primary', method: "post" %>
+        </div>
+
+        <div class="mt-3">
+          <label class="bmd-label-floating">単語をCSVデータで一括登録</label><i class="fas fa-info-circle" id="csv-upload-explain-trigger"></i>
+          <div id="csv-upload-explain" class="hidden">アップロードについて：<br>ファイルサイズは500kBまで<br>文字コードはUTF-8<br>ファイル形式はCSV(.csvファイル)<br>フォーマットは上の「CSV ダウンロード」からダウンロードして利用してください。 </div>
+          <%= form_tag user_wordnote_upload_csv_path(user_id:0, wordnote_id:0), class:'upload-csv', method: "post", multipart: true, remote: true do %>
+            <%= button_tag '<i class="fas fa-upload"></i> CSV アップロード'.html_safe, type: "submit", class: "btn btn-outline-primary" %>
+            <%= file_field_tag :csv_file, accept: '.csv' %>
+          <% end %>
+        </div>
       </div>
-      <div>
-        <%= link_to "CSV ダウンロード", user_wordnote_download_csv_path(user_id:0, wordnote_id:0), class: 'download-csv', method: "post" %>
+
+      <div class="mt-5 d-flex justify-content-between">
+        <div class="btn btn-outline-info modal-close close-btn"><i class="fas fa-window-close"></i> 閉じる</div>
+        <div id="wordnote-detail-show-btn" class="btn btn-outline-secondary"><i class="fas fa-cogs"></i> 詳細設定</div>
+        <div id="wordnote-delete-btn" class="hidden">
+          <%= link_to(wordnote_url(user_id: 0, id: 0) ,id: 'delete-wordnote-btn', method: :delete , data: {confirm: "本当に削除しますか？"}, remote: true) do %>
+            <%= button_tag '<i class="fas fa-trash"></i> 単語帳を削除'.html_safe, type: "submit", class: "btn btn-outline-danger" %>
+          <% end %>
+        </div>
       </div>
-      <div class="pb-3 small">
-        <p>アップロードについて：ファイルサイズは500kBまでのCSV、文字コードはUTF-8でフォーマットは上のCSV ダウンロードからダウンロードして利用してください。 </p>
-        <%= form_tag user_wordnote_upload_csv_path(user_id:0, wordnote_id:0), class:'upload-csv', method: "post", multipart: true, remote: true do %>
-          <%= file_field_tag :csv_file, accept: '.csv' %>
-          <%= submit_tag "CSV アップロード", class: 'btn btn-primary' %>
-        <% end %>
-      </div>
-        <%= link_to(wordnote_url(user_id: 0, id: 0) ,id: 'delete-wordnote-btn', method: :delete , data: {confirm: "本当に削除しますか？"}, remote: true) do %>
-          <%= button_tag "単語帳を削除",type: "submit", class: "btn btn-danger" %>
-        <% end %>
-  
-      <div><span class="btn btn-info modal-close close-btn">閉じる</span></div>
     </div>
   </div>
 </div>

@@ -20,7 +20,9 @@
         </div>
         <% if @current_user == @user %>
           <div>
-            <%= link_to "アカウント情報変更", edit_user_path(@current_user), class: "btn btn-outline-info" %>
+            <%= link_to edit_user_path(@current_user), class: "btn btn-outline-info" do %>
+              <i class="fas fa-user"></i> アカウント情報変更
+            <% end %>
           </div>
         <% end %>
       </div>
@@ -33,7 +35,7 @@
             <% elsif @wordnotes.size > 0 %>
               <div id="add-tango-btn" class="mt-2 w-100 btn btn-outline-secondary" style="font-size: x-large"><i class="fas fa-file"></i> 単語を登録　</div>
             <% end %>
-            <div id="build-wordnote-window" class="modal">
+            <div id="create-wordnote-form" class="modal">
               <div class="modal__bg modal-close"></div>
               <div class="modal__content">
                 <div id="wordnote_register" class="container">
@@ -41,7 +43,7 @@
                 </div>
               </div>
             </div>
-            <div id="add-tango-window" class="modal">
+            <div id="create-tango-form" class="modal">
               <div class="modal__bg modal-close"></div>
               <div class="modal__content">
                 <div id="tango_register" class="container">
@@ -71,13 +73,13 @@
     jQuery(function(){ $.editWordnote() ;});
     jQuery(function(){ $.changeFavorite() ;});
     $(document).on('click','#add-tango-btn',function(){
-      $('#add-tango-window').fadeIn();
+      $('#create-tango-form').fadeIn();
     });
     $(document).on('click','#build-wordnote-btn',function(){
-      $('#build-wordnote-window').fadeIn();
+      $('#create-wordnote-form').fadeIn();
     });
     
-  $('#add-tango-window .modal-close, #build-wordnote-window .modal-close').on('click',function(){
+  $('#create-tango-form .modal-close, #create-wordnote-form .modal-close').on('click',function(){
     $('.modal').fadeOut();
   });
   </script>

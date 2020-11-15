@@ -61,6 +61,7 @@ div#wrapper {
       width: 100%;
       #hint-text{font-size: x-large;}
       p {margin:20px 0px;}
+      overflow-y: scroll;
     }
     .modal__bg{
       background: rgba(0,0,0,0.1);
@@ -76,7 +77,14 @@ div#wrapper {
       top: 50%;
       transform: translate(-50%,-50%);
       width: 60%;
+      max-width: 700px;
     }
+    @media (max-width: 1199px){
+      .modal__content{
+        width: 100% !important;
+        max-width: 100%;
+      }
+}
     .wordnote-list-answer-header, .wordnote-list-question-header { width: 35%}
     .wordnote-list-check-header { width: 2% }
     .wordnote-list-hint-header { width: 20% }
@@ -87,3 +95,4 @@ div#wrapper {
 svg[data-prefix="fa"].fa-star{
   color: #E4E65A;
 }
+
