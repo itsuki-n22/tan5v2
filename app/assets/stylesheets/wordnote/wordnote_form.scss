@@ -1,12 +1,10 @@
-@import "colors";
-
-#create-tango-form{
+#create-wordnote-form{
   margin: 0 auto;
   .form-group {
     margin-bottom: 2rem;
   }
 }
-h4#create-tango-form-title{
+h4#create-wordnote-form-title{
   position: relative;
   background: #f1f8ff;
   padding: 0.25em 0.5em;
@@ -15,9 +13,9 @@ h4#create-tango-form-title{
   border-radius: 10px;
 }
 
-h4#create-tango-form-title:before {
+h4#create-wordnote-form-title:before {
   font-family: "Font Awesome 5 Free";
-  content: "\f303"; 
+  content: "\f02d"; 
   position: absolute;
   padding: 0em;
   color: white;

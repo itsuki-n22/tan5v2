@@ -14,7 +14,7 @@
           <div>
             <%= check_box_tag :continue, false, nil,{class: "config-item"} %><%= label_tag :continue, "前回の続きからはじめる", class: "bmd-label-floating" %>
           </div>
-          <div class="form-group" multiple>
+          <div class="form-group">
             <%= label_tag :filter, "フィルター", class: "bmd-label-floating" %><%= select_tag :filter, options_for_select([["off","0"],["星1以上","1"],["星2以上","2"],["星3以上","3"],["星4以上","4"],["星5以上","5"]]), class: "config-item form-control" %>
           </div>
           <div class="form-group">

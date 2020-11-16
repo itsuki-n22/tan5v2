@@ -13,7 +13,11 @@ class TangosController < Base
   def update
     @wordnote = @current_user.wordnotes.find(params[:wordnote_id])
     @tango = @wordnote.tangos.find(params[:id])
-    @tango.update(tango_params)
+    if tango_params[:question] == '' || tango_params[:answer] == ''
+      render action: 'notice_form_error'
+    else
+      @tango.update(tango_params)
+    end
   end
 
   def create_on_list
@@ -21,7 +25,7 @@ class TangosController < Base
     @wordnote = @user.wordnotes.find(params[:wordnote_id])
     @tango = @wordnote.tangos.new(tango_params)
     if tango_params[:question] == '' || tango_params[:answer] == ''
-      render action: 'create_on_list_error'
+      render action: 'notice_form_error'
     else
       @tango.save
     end
@@ -32,19 +36,6 @@ class TangosController < Base
     @tango = @user.wordnotes.find(params[:wordnote_id]).tangos.new(tango_params)
     @wordnotes = @user.wordnotes.all
     @tango.save
-  end
-
-  def destroy
-    @user = User.find(params[:user_id])
-    delete_tangos = @user.tangos.where(name: params[:key].first).where(subject: params[:key].last)
-    @tango_name = delete_tangos.first.name
-    delete_tangos.destroy_all
-    renewed_tangos = @user.tangos.all.order(updated_at: :asc)
-    @classified_tango = classify_tangos(renewed_tangos)
-    respond_to do |format|
-      format.html { redirect_to :root }
-      format.js
-    end
   end
 
   def delete_checked_tangos

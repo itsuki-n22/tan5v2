@@ -47,10 +47,10 @@ class WordnotesController < Base
   end
 
   def destroy
-    @user = User.find(params[:user_id])
-    @wordnote = @user.wordnotes.find(params[:id])
-    @wordnotes = @user.wordnotes.all
+    @wordnote = current_user.wordnotes.find(params[:id])
     @wordnote.destroy
+    flash[:success] = '単語帳を削除しました'
+    redirect_to :root, status: 303
   end
 
   def download_csv

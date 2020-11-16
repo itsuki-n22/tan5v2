@@ -1,12 +1,12 @@
-@import "colors";
-
-#create-wordnote-form{
+#edit-user-form{
+  max-width: 1000px;
   margin: 0 auto;
+  padding: 1em;
   .form-group {
     margin-bottom: 2rem;
   }
 }
-h4#create-wordnote-form-title{
+h4#edit-user-form-title{
   position: relative;
   background: #f1f8ff;
   padding: 0.25em 0.5em;
@@ -15,9 +15,9 @@ h4#create-wordnote-form-title{
   border-radius: 10px;
 }
 
-h4#create-wordnote-form-title:before {
+h4#edit-user-form-title:before {
   font-family: "Font Awesome 5 Free";
-  content: "\f02d"; 
+  content: "\f007"; 
   position: absolute;
   padding: 0em;
   color: white;

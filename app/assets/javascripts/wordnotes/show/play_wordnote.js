@@ -1,4 +1,4 @@
-jQuery.playWordnote = function(){
+jQuery(function($){
   let fontSize = $('[name*="font_size-"]').val();$
   $('#learn-wrapper').css({'font-size': Number(fontSize)});$
   let interval = Number($('[name*="timer-"]').val());$
@@ -60,7 +60,6 @@ jQuery.playWordnote = function(){
   let displayInterval;
   let displayCounter = 3;
   if(interval > 0){ 
-    //runTimer(interval);
     displayCounter = interval;
   }
   controlTimer();
@@ -128,7 +127,6 @@ jQuery.playWordnote = function(){
     correctBtnHtml.addClass('blink');
   }
   
-  
   function showAllTangos(){
     if( $('#current_user_id').val() == location.pathname.split("/")[2] ){ 
       showAllTangosHtml.click(function(){
@@ -142,6 +140,7 @@ jQuery.playWordnote = function(){
       });
     }
   };
+
   function operateStatus(){
     /// #btn => resetTangoArray
     $('#questions').on('click',"[class*='update-btn'] , [class*='create-btn'], [class*='delete-btn']",function(){
@@ -252,7 +251,6 @@ jQuery.playWordnote = function(){
     });
 
     ////// control panel 
-
     $(".c-small").hover(
       function(){
         $(this).addClass("hover-small");
@@ -288,9 +286,6 @@ jQuery.playWordnote = function(){
 
     ////// tango panel 
     learnHtml.click(function(){
-      //if(answerHtml.attr('class') == 'hidden'){
-      //  changeTangoData({trial_num: true}
-      //)};
       changeTangoStatus();
       resetTimer();
     });
@@ -322,7 +317,7 @@ jQuery.playWordnote = function(){
       $('.modal').fadeOut(200);
     });
 
-    ////
+    //// setTango control
     $("[class*='to-1']").click(function(){
        changeTangoNumber(-1);
        setTango();
@@ -416,4 +411,4 @@ jQuery.playWordnote = function(){
       resetTimer();
     }
   });
-};
+});

@@ -18,6 +18,16 @@ div#profile-box {
   div{margin-bottom:10px;}
 }
 
+.user-profile-in-wordnote{
+  text-align: right;
+  img {
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    border: 1px white solid;
+  }
+}
+
 #user-show-register-btns{
   margin: 15px auto;
   padding: 0.5em 1em;

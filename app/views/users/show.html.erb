@@ -66,21 +66,3 @@
   </div>
 </div>
 
-<div class="js-zone">
-  <%= javascript_include_tag 'users/show/edit_wordnote' %>
-  <%= javascript_include_tag 'users/show/change_favorite' %>
-  <script>
-    jQuery(function(){ $.editWordnote() ;});
-    jQuery(function(){ $.changeFavorite() ;});
-    $(document).on('click','#add-tango-btn',function(){
-      $('#create-tango-form').fadeIn();
-    });
-    $(document).on('click','#build-wordnote-btn',function(){
-      $('#create-wordnote-form').fadeIn();
-    });
-    
-  $('#create-tango-form .modal-close, #create-wordnote-form .modal-close').on('click',function(){
-    $('.modal').fadeOut();
-  });
-  </script>
-</div>

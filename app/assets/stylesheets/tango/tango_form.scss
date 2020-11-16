@@ -1,14 +1,10 @@
-@import "colors";
-
-#edit-user-form{
-  max-width: 1000px;
+#create-tango-form{
   margin: 0 auto;
-  padding: 1em;
   .form-group {
     margin-bottom: 2rem;
   }
 }
-h4#edit-user-form-title{
+h4#create-tango-form-title{
   position: relative;
   background: #f1f8ff;
   padding: 0.25em 0.5em;
@@ -17,9 +13,9 @@ h4#edit-user-form-title{
   border-radius: 10px;
 }
 
-h4#edit-user-form-title:before {
+h4#create-tango-form-title:before {
   font-family: "Font Awesome 5 Free";
-  content: "\f007"; 
+  content: "\f303"; 
   position: absolute;
   padding: 0em;
   color: white;
