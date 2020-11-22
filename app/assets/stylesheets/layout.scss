@@ -1,54 +1,16 @@
-@import "colors";
-* {
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-}
-.d-flex:not(.flex-column)>* {
-    min-width: 0;
-}
-.d-flex.flex-column>* {
-    max-width: 100%;
-}
-html,body{ margin:0; padding:0; height: 100%;}
-.title-logo-img { height: 2.25rem }
-a:hover{text-decoration: none !important;}
-header { 
-  padding: 10px;
-  background-color: $middle_blue;
-  color: $light_gray;
-  span.logo { font-weight: bold;
-  }
-  a { text-decoration: none; }
-  a.login-button { float: right; color: $light_gray;}
-  a.logo { color: $light_gray; font-weight: bold;}
-  form{ display: inline}
-  #search_word{ 
-    border-radius: 20px;
-    float: right;
-    padding-left: 10px;
-    padding-right: 30px;
-    color: #666;
-    border:none
-  }
-  input::placeholder{
-    font-size: large;
-    color: #ccc;
-  }
-  h1{
-    font-size: small;
-    display: inline;
-  }
-  
-}
-
+html,body{ margin:0; padding:0; height: 100%; }
+.title-logo-img { height: 2.25rem; }
+a:hover{ text-decoration: none !important; }
+.hidden{ display: none !important; }
 .alert { width: 100%; display:block;}
 #flash-message{position: fixed; z-index: 100;}
+
 
 footer { 
   bottom: 0;
   width: 100%;
-  background-color: $dark_gray;
-  color: $light_gray;
+  background-color: #666666;
+  color: #eeeeee;
   p {
     text-align: center;
     padding:5px;
@@ -63,24 +25,64 @@ div#wrapper {
   padding-bottom: 48px;
   background-color: #fafafa;
   min-height: 100%;
-  color: $very_dark_gray;
+  color: #404040;
 }
 
-.user-profile-in-wordnote{
-  text-align: right;
-  img {
-    border-radius: 50%;
-    width: 25px;
-    height: 25px;
-    border: 1px gray solid;
-  }
-}
 
+//// モーダル
+.modal{
+  display: none;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  #hint-text{font-size: x-large;}
+  p {margin:20px 0px;}
+  overflow-y: scroll;
+}
+.modal__bg{
+  background: rgba(0,0,0,0.1);
+  height: 100vh;
+  position: absolute;
+  width: 100%;
+}
+.modal__content{
+  background: white;
+  left: 50%;
+  padding: 40px;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  width: 60%;
+  max-width: 700px;
+}
+//// モーダルここまで
+
+////// 微調整
+
+/// ブリンクさせる
 .blink {
-  animation: blink 0.8s infinite alternate;
+  animation: blink 0.4s infinite alternate;
 }
 
 @keyframes blink{
   from{opacity: 2;}
-  to{opacity: 0.3;}
+  to{opacity: 0.5;}
 }
+/// ブリンクさせるここまで
+
+/// flex-box からはみ出るコンテンツを収める
+* {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+.d-flex:not(.flex-column)>* {
+  min-width: 0;
+}
+.d-flex.flex-column>* {
+  max-width: 100%;
+}
+/// flex-box からはみ出るコンテンツを収める ここまで
+
+////// 微調整 ここまで
+

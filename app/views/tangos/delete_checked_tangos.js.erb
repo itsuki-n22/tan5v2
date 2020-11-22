@@ -1,11 +1,14 @@
+original_num = $('#questions').find('tr').length - 2;
+deletedTangos = JSON.parse(JSON.stringify(<%= @tango_json %>));
+
 $('#delete-btn').find('[name="tangos[]"]').remove();
 $('#flash-message').html('<span class="alert alert-success">単語を削除しました</span>').hide().slideDown(500);
-$(function(){
-  setTimeout("$('.alert.alert-success').fadeOut('slow')", 2000);
-});
+$(function(){ setTimeout("$('.alert.alert-success').fadeOut('slow')", 2000);});
 
-var deletedTangos = JSON.parse(JSON.stringify(<%= @tango_json %>));
 $.each(deletedTangos, function(index,elem){
   $('#tango-no-' + elem.id).fadeOut("slow").remove();
 });
 
+if ( original_num - deletedTangos.length === 0){
+  location.href='/'
+}

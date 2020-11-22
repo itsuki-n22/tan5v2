@@ -1,0 +1,28 @@
+#login-form{
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 1em;
+  .form-group {
+    margin-bottom: 2rem;
+  }
+}
+h1#login-form-title{
+  position: relative;
+  background: #f1f8ff;
+  padding: 0.25em 0.5em;
+  border-left: solid 2em #5c9ee7;
+  margin: 0.5em 0 2em;
+  border-radius: 10px;
+}
+h1#login-form-title:before {
+  font-family: "Font Awesome 5 Free";
+  content: "\f2f6"; 
+  position: absolute;
+  padding: 0em;
+  color: white;
+  font-weight: 900;
+  left: -1.45em;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}

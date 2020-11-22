@@ -1,4 +1,4 @@
-jQuery.playWordnote = function(){
+jQuery(function($){
   let fontSize = $('[name*="font_size-"]').val();$
   $('#learn-wrapper').css({'font-size': Number(fontSize)});$
   let interval = Number($('[name*="timer-"]').val());$
@@ -18,6 +18,8 @@ jQuery.playWordnote = function(){
   tangoArray.pop();
   let questionHtml = $('#question-text');
   let answerHtml = $('#answer-text');
+  let questionBoxHtml = $('#question');
+  let answerBoxHtml = $('#answer');
   let hintHtml = $('#hint-text');
   let tangosHtml = $('#questions');
   let learnHtml = $('#learn-wrapper');
@@ -58,7 +60,6 @@ jQuery.playWordnote = function(){
   let displayInterval;
   let displayCounter = 3;
   if(interval > 0){ 
-    runTimer(interval);
     displayCounter = interval;
   }
   controlTimer();
@@ -106,20 +107,25 @@ jQuery.playWordnote = function(){
   function setTango(){
     resetTangoArray();
     getTangoData();
-    $('#tango-number').text(tangoNumber + 1);
+    $('#tango-number').text(String(tangoNumber + 1) + " / " + tangoArray.length);
     answerHtml.addClass('hidden'); 
+    answerBoxHtml.addClass('blink'); 
     questionHtml.text(tangoArray[tangoNumber].question);
-    answerHtml.html(tangoArray[tangoNumber].answer.replace(/\n/g,"<br>"));
+    answerHtml.html(htmlEscape(tangoArray[tangoNumber].answer).replace(/\n/g,"<br>"));
     hintHtml.text(' ' + tangoArray[tangoNumber].hint);
     wrongBtnHtml.addClass('hidden');
     correctBtnHtml.addClass('hidden');
+    wrongBtnHtml.removeClass('blink');
+    correctBtnHtml.removeClass('blink');
   }
   function showAnswer(){
     answerHtml.removeClass('hidden');
+    answerBoxHtml.removeClass('blink'); 
     wrongBtnHtml.removeClass('hidden');
     correctBtnHtml.removeClass('hidden');
+    wrongBtnHtml.addClass('blink');
+    correctBtnHtml.addClass('blink');
   }
-  
   
   function showAllTangos(){
     if( $('#current_user_id').val() == location.pathname.split("/")[2] ){ 
@@ -134,6 +140,7 @@ jQuery.playWordnote = function(){
       });
     }
   };
+
   function operateStatus(){
     /// #btn => resetTangoArray
     $('#questions').on('click',"[class*='update-btn'] , [class*='create-btn'], [class*='delete-btn']",function(){
@@ -141,20 +148,31 @@ jQuery.playWordnote = function(){
     });
 
     /// edit tango
-    $(document).on('dblclick',"[id*='tango-no-'] > td",function(){
-      let attr = $(this).attr('class');
-      let value = $(this).text();
+    $(document).on({
+      'mouseenter':function(){
+        $(this).find("[class*='fa-edit']").removeClass("hidden");
+      },
+      'mouseleave':function(){
+        $(this).find("[class*='fa-edit']").addClass("hidden");
+      }
+    },"[class='hint'], [class='answer'], [class='question']");
+
+    $(document).on('click',"[id*='tango-no-'] > td > [class*='fa-edit']", function(){
+      let td = $(this).parent();
+      let attr = $(this).parent().attr('class');
+      let value = $(this).parent().text();
       if (!attr){} else if (attr.length > 1){
-        $(this).removeClass(attr);
-        if (attr == "updated_at"){
+        $(this).parent().removeClass(attr);
+        if (attr == "created_at"){
         }else{
-          $(this).siblings().last().find('[class*="updated-text"]').addClass("hidden");
-          $(this).siblings().last().find('[class*="btn"]').removeClass("hidden");
+          $(this).parent().siblings().last().find('[class*="created_at-text"]').addClass("hidden");
+          $(this).parent().siblings().last().find('[class*="btn"]').removeClass("hidden");
           let textarea = jQuery(jQuery.parseHTML('<textarea style="width:100%;"></textarea>')).attr({
-            class: "tango_" + attr,
-            default: value
+            class: "tango_" + htmlEscape(attr),
+            default: htmlEscape(value)
           }).val(value);
-          $(this).html(textarea);
+          $(this).parent().html(textarea);
+          td.find('textarea').height((td.find('textarea').get(0).scrollHeight));
         };
       };
     });
@@ -168,11 +186,13 @@ jQuery.playWordnote = function(){
     $("table").on('click',"[class*='update-cancel-btn']",function(){
       $(this).parent().siblings().children("textarea").each(function(){
         let value = $(this).attr('default');
+        if (value === undefined){ value = "" }
+        value = value + "<i class='fas fa-edit fa-xs ml-1 hidden'></i>";
         let attr = $(this).attr("class").split("_").pop();
         $(this).parent().addClass(attr).html(value);
       });
       
-      $(this).parent().find('[class*="updated-text"]').removeClass("hidden");
+      $(this).parent().find('[class*="created_at-text"]').removeClass("hidden");
       $(this).parent().find('[class*="btn"]').addClass("hidden");
     });
 
@@ -231,7 +251,6 @@ jQuery.playWordnote = function(){
     });
 
     ////// control panel 
-
     $(".c-small").hover(
       function(){
         $(this).addClass("hover-small");
@@ -267,9 +286,6 @@ jQuery.playWordnote = function(){
 
     ////// tango panel 
     learnHtml.click(function(){
-      //if(answerHtml.attr('class') == 'hidden'){
-      //  changeTangoData({trial_num: true}
-      //)};
       changeTangoStatus();
       resetTimer();
     });
@@ -301,7 +317,7 @@ jQuery.playWordnote = function(){
       $('.modal').fadeOut(200);
     });
 
-    ////
+    //// setTango control
     $("[class*='to-1']").click(function(){
        changeTangoNumber(-1);
        setTango();
@@ -368,4 +384,31 @@ jQuery.playWordnote = function(){
       },
     });
   };
-};
+
+  function htmlEscape(str) {
+    if (!str) return;
+    return str.replace(/[<>&"'`]/g, function(match) {
+      const escape = {
+        '<': '&lt;',
+        '>': '&gt;',
+        '&': '&amp;',
+        '"': '&quot;',
+        "'": '&#39;',
+        '`': '&#x60;'
+      };
+      return escape[match];
+    });
+  }
+  ///// キーボード操作
+  $(document).keyup(function(event){
+    if (event.keyCode === 39){
+      changeTangoStatus();
+      resetTimer();
+    }
+    if (event.keyCode === 37){
+      changeTangoNumber(-1);
+      setTango();
+      resetTimer();
+    }
+  });
+});

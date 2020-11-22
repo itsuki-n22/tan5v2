@@ -1,42 +1,45 @@
-div.profile-box {
+div#profile-box {
   margin: 15px auto ;
   text-align:center;
   font-size: x-large;
-  h1 {
-    font-size: xx-large;
-  }
-
-
-
+  background: white;
+  border-radius: 10px;
 
   .user-profile {
     margin: 0 auto ;
     width: 80%;
-
   }
   .user-profile-image img{
     border-radius: 50%;
     width: 100px;
     height: 100px;
-    border: 1px gray solid;
+    border: 1px white solid;
   }
   div{margin-bottom:10px;}
 }
 
-.user-config{
+.user-profile-in-wordnote{
+  text-align: right;
+  img {
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    border: 1px white solid;
+  }
+}
+
+#user-show-register-btns{
   margin: 15px auto;
+  padding: 0.5em 1em;
+  background: white;
+  border-radius: 10px;
 }
 
 .not-open::after{
   content: "🔒";
-  
-  
 }
-#categories {
+#created-wordnotes {
   margin: 0 auto;
-  padding: 0px;
-  border-radius: 10px;
-  background-color: snow;
 }
 
 .header-icon {
@@ -45,7 +48,7 @@ div.profile-box {
   border-radius: 13px;
 }
 .dropdown-toggle::after { content: none !important}
-.favorited { color: orange !important;}
+.favorited { color: #E45757 !important;}
 .btn-search {
   color: #6666ee !important;
   border-color: #6666ee !important;
@@ -53,13 +56,13 @@ div.profile-box {
 
 h4#user-show-favorites-title {
   position: relative;
-  background: #FFFFEF;
+  background: #FFEFEF;
   padding: 0.25em 0.5em;
-  border-left: solid 2em #E4E65A;
+  border-left: solid 2em #E45757;
   border-radius: 10px;
 }
 
-h4#user-show-wordnotes-title {
+h4#user-show-wordnotes-title, h4#user-index-title {
   position: relative;
   background: #f1f8ff;
   padding: 0.25em 0.5em;
@@ -70,7 +73,7 @@ h4#user-show-wordnotes-title {
 
 h4#user-show-favorites-title:before {
   font-family: "Font Awesome 5 Free";
-  content: "\f005";
+  content: "\f004";
   position: absolute;
   padding: 0em;
   color: white;
@@ -81,9 +84,8 @@ h4#user-show-favorites-title:before {
   transform: translateY(-50%);
 }
 
-h4#user-show-wordnotes-title:before {
+h4#user-show-wordnotes-title:before, h4#user-index-title:before {
   font-family: "Font Awesome 5 Free";
-  content: "\f02d";
   position: absolute;
   padding: 0em;
   color: white;
@@ -93,6 +95,8 @@ h4#user-show-wordnotes-title:before {
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
 }
+h4#user-show-wordnotes-title:before{ content: "\f02d";}
+h4#user-index-title:before { content: "\f007"; }
 
 #user-show-left{
   margin: 0 auto;

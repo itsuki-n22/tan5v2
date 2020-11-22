@@ -1,0 +1,27 @@
+#create-wordnote-form{
+  margin: 0 auto;
+  .form-group {
+    margin-bottom: 2rem;
+  }
+}
+h4#create-wordnote-form-title{
+  position: relative;
+  background: #f1f8ff;
+  padding: 0.25em 0.5em;
+  border-left: solid 2em #5c9ee7;
+  margin: 0.5em 0 2em;
+  border-radius: 10px;
+}
+
+h4#create-wordnote-form-title:before {
+  font-family: "Font Awesome 5 Free";
+  content: "\f02d"; 
+  position: absolute;
+  padding: 0em;
+  color: white;
+  font-weight: 900;
+  left: -1.45em;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}

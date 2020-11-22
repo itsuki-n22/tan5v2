@@ -1,11 +1,11 @@
 <% if @wordnotes.size > 0 %>
-<div style="max-width: 700px; margin: 0 auto;">
+<div>
 <h4 class="display-4" id="user-show-wordnotes-title">単語帳</h3>
 <div class="row m-0">
   <% @wordnotes.each do |wordnote| %>
     <% if wordnote.is_open == true || @current_user.id == wordnote.user_id %>
-      <div class="wordnote-card col-md-6 p-2" id="wordnote-no-<%= wordnote.id %>">
-        <div class="card">
+      <div class="wordnote-card col-lg-6 p-2" id="wordnote-no-<%= wordnote.id %>">
+        <div class="card" style="height:100%;">
           <div class="card-header <%= 'not-open' if wordnote.is_open == false %>"> 
             <div class="d-flex">
               <div class="align-self-center" style="max-width: 70%; font-size: large;" ><%= link_to wordnote.name, user_wordnote_url(user_id: user.id, id: wordnote.id) %></div>
