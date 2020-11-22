@@ -8,7 +8,7 @@
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_pack_tag 'application'  %>
     <% Dir.glob(Rails.root.join("app","assets","javascripts",params[:controller],params[:action],"*")) do |f| %>
-      <%= javascript_include_tag f %>
+      <%= javascript_include_tag f.split("javascripts/").last %>
     <% end %>
     <%= javascript_include_tag 'shared/shared' %>
   </head>
