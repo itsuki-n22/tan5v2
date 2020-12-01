@@ -1,0 +1,25 @@
+version: "3"
+services:
+  db:
+    image: postgres
+    ports: 
+      - '5432:5432'
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: 'trust'
+
+  web:
+    build: .
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    tty: true
+    stdin_open: true
+    depends_on: 
+      - db
+    ports:
+      - '3000:3000'
+    volumes: 
+      - .:/tan5
+volumes:
+  postgresql-data:
+    driver: local
