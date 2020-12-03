@@ -1,3 +1,23 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :bigint           not null, primary key
+#  admin           :boolean          default(FALSE)
+#  email           :string           not null
+#  hashed_password :string
+#  name            :string           not null
+#  profile         :string
+#  profile_image   :string
+#  suspended       :boolean          default(FALSE), not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+# Indexes
+#
+#  index_users_on_LOWER_email  (lower((email)::text)) UNIQUE
+#  index_users_on_name         (name)
+#
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
@@ -46,13 +66,9 @@ RSpec.describe User, type: :model do
       expect(user).not_to be_valid
     end
     example 'email が0文字以下、48文字以上だと無効 ' do
-      user = build(:user, email: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx')
+      user = build(:user, email: 'x' * 48 + '@a.com')
       expect(user).not_to be_valid
       user = build(:user, email: '')
-      expect(user).not_to be_valid
-    end
-    pending 'passwordがない' do
-      user = build(:user, email: 'a@a.com')
       expect(user).not_to be_valid
     end
   end
