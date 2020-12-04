@@ -21,7 +21,7 @@ class Tango < ApplicationRecord
 
   validates :question, presence: true, length: {in: 1..3000}
   validates :answer, presence: true, length: {in: 1..3000}
-  validates :hint, length: {in: 1..3000}
+  validates :hint, length: {in: 0..3000}
 
   scope :asc_with_datum, -> { order(id: :asc).includes(:tango_datum) }
   scope :desc_with_datum, -> { order(id: :desc).includes(:tango_datum) }
