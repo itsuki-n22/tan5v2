@@ -16,8 +16,10 @@ class SessionsController < Base
       session[:user_id] = user.id
       @save = true
       flash[:success] = 'ログイン成功'
+      redirect_to :root
     else
       flash[:danger] = 'パスワードかメールアドレスのいずれかが間違っています。'
+      render :new
     end
   end
 

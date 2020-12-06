@@ -1,6 +1,5 @@
 require 'rails_helper'
-
-describe 'user show page', type: :system do
+describe 'user show page', type: :system, js: true do
   describe '単語帳作成' do
     before do
       @user_a = FactoryBot.create(:user, name: 'taro', email: 'example@mail.com', profile: 'this is profile')
@@ -11,27 +10,32 @@ describe 'user show page', type: :system do
       fill_in 'パスワード', with: password
       click_button 'ログイン'
     end
+
     context 'ユーザーA' do
       example '初期画面が正しく表示されている' do
-        expect(page).not_to have_content '作成した単語帳'
-        p tmp = find(:xpath, '//*[@class="user-name"]/h1').text
+        expect(page).not_to have_content '単語を登録'
+        expect(page).to have_content '単語帳を作成'
+        expect(page).to have_content 'アカウント情報変更'
+        tmp = find(:xpath, '//*[@class="user-name"]/h1').text
         expect(tmp).to have_content @user_a.name
-        p tmp = find(:xpath, '//*[@class="user-profile"]').text
+        tmp = find(:xpath, '//*[@class="user-profile"]').text
         expect(tmp).to have_content @user_a.profile
-        p tmp = find(:xpath, '//*[@class="user-created_at"]').text
+        tmp = find(:xpath, '//*[@class="user-created_at"]').text
         expect(tmp).to have_content @user_a.created_at.to_s.split(' ').first
       end
 
       example '単語帳を登録' do
-        fill_in 'wordnote_name', with: 'sample'
+        find(:id, 'build-wordnote-btn').click
+        find(:id, 'wordnote_name').send_keys 'sample'
+        expect(tmp).to have_content @user_a.created_at.to_s.split(' ').first
         fill_in 'wordnote_subject', with: 'English'
-        click_button '登録'
+        #click_button '単語帳を登録'
         sleep 1
-        expect(page).to have_content '作成した単語帳'
         expect(page).to have_content 'sample'
         expect(page).to have_content 'English'
         expect(page).to have_content '単語を登録'
       end
+
       example '単語を登録' do
         FactoryBot.create(:wordnote, name: 'sample', subject: 'English', user: @user_a)
         fill_in 'tango_question', with: 'お腹が空いた'
@@ -41,6 +45,7 @@ describe 'user show page', type: :system do
         tmp = find(:xpath, '//*[@id="categories"]/table/tbody/tr[2]/td[3]').text
         expect(tmp).to eq('1')
       end
+
     end
   end
 end

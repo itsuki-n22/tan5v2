@@ -35,9 +35,10 @@ class WordnotesController < Base
   end
 
   def create
-    @wordnote = @current_user.wordnotes.new(wordnote_params)
+    p @wordnote = @current_user.wordnotes.new(wordnote_params)
     @user = @current_user
     @wordnotes = @user.wordnotes.all if @wordnote.save
+    render 'create.js.erb'
   end
 
   def update
