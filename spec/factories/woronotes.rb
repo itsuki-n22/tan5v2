@@ -1,7 +1,8 @@
 FactoryBot.define do
   factory :wordnote do
-    name { 'test1' }
-    subject { 'English' }
+    sequence(:name) {|n| "name#{n}" }
+    sequence(:subject) {|n| "subject#{n}" }
+    is_open { true }
     user { FactoryBot.create :user }
   end
 end

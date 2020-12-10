@@ -19,7 +19,7 @@ class SessionsController < Base
       redirect_to :root
     else
       flash[:danger] = 'パスワードかメールアドレスのいずれかが間違っています。'
-      render :new
+      render action: :new
     end
   end
 

@@ -17,9 +17,9 @@
 #
 FactoryBot.define do
   factory :tango do
-    answer { 'this is answer' }
-    question { 'this is question' }
-    hint { 'this is hint' }
+    sequence(:answer) {|n| "answer-#{n}" }
+    sequence(:question) {|n| "question-#{n}" }
+    sequence(:hint) {|n| "hint-#{n}" }
     wordnote { FactoryBot.create :wordnote }
   end
 end

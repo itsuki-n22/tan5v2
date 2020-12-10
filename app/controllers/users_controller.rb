@@ -13,8 +13,6 @@ class UsersController < Base
   end
 
   def show
-    p "-----------------------"
-    p params
     @user = User.find(params[:id])
     @wordnotes = User.find(params[:id]).wordnotes.includes(:user, :tangos).order(updated_at: :asc)
     @tango = @user.wordnotes.build.tangos.build
