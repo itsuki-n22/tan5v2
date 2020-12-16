@@ -15,7 +15,6 @@
 #  index_tangos_on_created_at                  (created_at)
 #  index_tangos_on_wordnote_id_and_created_at  (wordnote_id,created_at)
 #
-require 'rails_helper'
 RSpec.describe Tango, type: :model do
   describe 'バリデーション' do
 

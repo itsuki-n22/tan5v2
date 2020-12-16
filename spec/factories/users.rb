@@ -21,8 +21,8 @@
 FactoryBot.define do
   factory :user do
     sequence(:email) { |n| "user#{n}@example.com" }
-    name { 'jiro' }
-    profile { 'hellooooooo' }
+    sequence(:name) { |n| "user-#{n}" }
+    sequence(:profile) { |n| "profile-#{n}" }
     password { 'password' }
     suspended { false }
   end

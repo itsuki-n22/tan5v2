@@ -38,6 +38,11 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'rails-erd'
+  gem 'pry-byebug'
+  gem 'pry-rails'
+  gem 'rspec-rails'
+  gem 'capybara', '>= 2.15'
+  gem 'selenium-webdriver'
 end
 
 group :development do
@@ -50,8 +55,6 @@ group :development do
 
   gem 'better_errors'
   gem 'binding_of_callers'
-  gem 'pry-byebug'
-  gem 'pry-rails'
   gem 'rubocop'
   gem 'rubocop-rails'
 end
@@ -60,7 +63,6 @@ group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
   gem 'factory_bot_rails'
-  gem 'rspec-rails'
   gem 'selenium-webdriver'
   gem 'webdrivers'
 end

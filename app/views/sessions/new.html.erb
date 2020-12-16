@@ -1,7 +1,7 @@
 <% @title = "tan5にログイン" %>
 <div id="login-form">
   <h1 id="login-form-title"><%= @title %></h1>
-  <%= form_with model: @form, url: :session do |f| %>
+  <%= form_with model: @form, url: :session, local: true do |f| %>
     <div class="form-group">
       <%= f.label :email, "メールアドレス(必須)", class: "bmd-label-floating" %>
       <%= f.email_field :email, size: 32, required: true, class: "form-control" %>
