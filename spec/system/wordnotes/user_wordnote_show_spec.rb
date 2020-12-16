@@ -1,4 +1,3 @@
-require 'rails_helper'
 describe 'Wordnote', type: :system, js: true do
   describe '他人の単語帳' do
     let!(:user) { create(:user) }
@@ -12,10 +11,11 @@ describe 'Wordnote', type: :system, js: true do
     end
 
     xexample '他人の非公開設定の単語帳にアクセスできないこと' do
+    # 要修正 controllerで権限管理をする
       expect(page).not_to have_content(tangos.first.question)
     end
    
-    xexample '他人の単語帳では単語一覧が表示できないこと' do
+    example '他人の単語帳では単語一覧が表示できないこと' do
       expect( find('#show-tangos') ).not_to have_content('問題を全て見る')
     end
   end
@@ -31,13 +31,13 @@ describe 'Wordnote', type: :system, js: true do
       visit user_wordnote_path(user_id: user, id: my_wn)
     end
 
-    xexample '自分のの非公開設定の単語帳にアクセスできること' do
+    example '自分のの非公開設定の単語帳にアクセスできること' do
       expect(page).to have_content(tangos.first.question)
     end
 
     describe '単語帳学習画面の基本動作' do
    
-      xexample '問題と答えの表示動作が正常に機能すること' do
+      example '問題と答えの表示動作が正常に機能すること' do
         ( tangos << create_list(:tango, 10, wordnote: my_wn) ).flatten!
         visit current_path
         # 画面をクリックすることで答えの表示
@@ -62,7 +62,7 @@ describe 'Wordnote', type: :system, js: true do
         expect(page).to have_content(tangos[1].question)
       end
 
-      xexample '単語一覧表示ON/OFFが機能すること' do
+      example '単語一覧表示ON/OFFが機能すること' do
         find('#show-tangos').click
         expect(page).to have_content(tangos[0].answer)
         expect(page).to have_content(tangos[1].question)
@@ -73,7 +73,7 @@ describe 'Wordnote', type: :system, js: true do
         expect(page).not_to have_content(tangos[2].hint)
       end
 
-      xexample '一覧表示画面から単語の編集ができること' do
+      example '一覧表示画面から単語の編集ができること' do
         find('#show-tangos').click
         within "#tango-no-#{tangos.first.id}" do
           find(".question").hover
@@ -85,7 +85,7 @@ describe 'Wordnote', type: :system, js: true do
         expect(page).to have_content("hoge")
       end
 
-      xexample '一覧表示画面から単語の新規登録がができること' do
+      example '一覧表示画面から単語の新規登録がができること' do
         find('#show-tangos').click
         find(:xpath, '//*[@id="create-new-tango"]/td[1]/button').click
         find(:xpath, '//*[@id="create-new-tango"]/td[@class="question"]/textarea').set("hoge")
@@ -94,13 +94,12 @@ describe 'Wordnote', type: :system, js: true do
         find(:xpath, '//*[@id="create-new-tango"]/td[6]/form').click
         visit current_path
         find('#show-tangos').click
-        expect(page).to have_content("単語を登録しました")
         expect(page).to have_content("hoge")
         expect(page).to have_content("fuga")
         expect(page).to have_content("moge")
       end
 
-      xexample '一覧表示画面から複数の単語を削除できること' do
+      example '一覧表示画面から複数の単語を削除できること' do
         find('#show-tangos').click
         expect{ 
           2.times do |num|
@@ -117,29 +116,30 @@ describe 'Wordnote', type: :system, js: true do
         expect(current_path).to eq(user_path(user))
       end
      
-      xexample 'ヒントモーダルが正常に起動すること' do
+      example 'ヒントモーダルが正常に起動すること', point: true do
         find('#hint-btn').click
         expect(page).to have_content('閉じる')
         expect(page).to have_content(tangos.first.hint)
-        find('.modal__content', text: '閉じる').click
+        find(:xpath, "//*[contains(text(), '閉じる')]").click
         expect(page).not_to have_content('閉じる')
       end
 
-
-      xexample '★の数による単語の絞り込みが機能していること' do
-        # starbtn が機能していない
-        expect{ find('#star-3').click}.to change( TangoDatum.all, :count ).by(0)
-        find(:xpath, '//*[@id="learn-operation"]/div[2]/div[4]').click
-        expect{ find('#star-4').click}.to change( TangoDatum.all, :count ).by(0)
-        find(:xpath, '//*[@id="learn-operation"]/div[2]/div[2]').click
+      example '星の数による単語の絞り込みが機能していること' do
+        expect{ 
+          execute_script('$("#star-3").trigger("click")') # id="star-3" を持つ要素にhoverとclickの2つのイベントがあるとclickのイベントが機能しない。
+          find(:xpath, '//*[@id="learn-operation"]/div[2]/div[4]').click
+        }.to change( TangoDatum.all, :count ).by(1)
+        expect{ 
+          execute_script('$("#star-4").trigger("click")')
+          find(:xpath, '//*[@id="learn-operation"]/div[2]/div[2]').click
+        }.to change( TangoDatum.all, :count ).by(1)
         find(:id, "config-no-#{my_wn.id}").click
         find(:id, 'filter').find("option[value='3']").select_option
         find(:xpath, "//*[contains(@class, 'close-btn')]").click
-        expect(page).to have_content('★を3に設定しました')
-        
+        expect( find('#tango-number') ).to have_content("1 / 2")
       end
 
-      xexample '自動再生ボタンが正常に機能していること' do
+      example '自動再生ボタンが正常に機能していること' do
         find(:id, 'auto-btn').click
         sleep 2
         expect(page).to have_content("#{tangos.first.answer}")
@@ -157,7 +157,7 @@ describe 'Wordnote', type: :system, js: true do
         expect(page).to have_content("#{tangos.first.answer}")
       end
 
-      xexample '前回の途中から表示する機能が正常に動いていること' do
+      example '前回の途中から表示する機能が正常に動いていること' do
         expect(page).to have_content(tangos[0].question)
         find(:xpath, '//*[@id="learn-operation"]/div[2]/div[4]').click
         visit current_path
@@ -172,25 +172,31 @@ describe 'Wordnote', type: :system, js: true do
         expect(page).to have_content(tangos[1].question)
       end
 
-      xexample '単語表示の並びが設定によって反映されていること' do
+      example '単語表示の並びが設定によって反映されていること' do
         find(:id, "config-no-#{my_wn.id}").click
         find(:id, 'sort').find("option[value='desc']").select_option
         find(:xpath, "//*[contains(@class, 'close-btn')]").click
         expect(page).to have_content(tangos[-1].question)
       end
 
-      xexample '文字サイズの設定が反映されること' do
+      example '文字サイズの設定が反映されること' do
         find(:id, "config-no-#{my_wn.id}").click
         find(:id, 'font_size').find("option[value='40']").select_option
         find(:xpath, "//*[contains(@class, 'close-btn')]").click
         expect(find(:id, 'question-text').native.css_value('font-size')).to eq('40px')
       end
 
-      xexample '正解ボタンと間違いボタンをクリックして、正解率の表示に反映されること' do
-
-      end
-
-      example '' do
+      example '正解ボタンと間違いボタンをクリックして、正解率の表示に反映されること' do
+        find('#learn-wrapper').click
+        find(:id, "correct-btn").click
+        find(:xpath, '//*[@id="learn-operation"]/div[2]/div[2]').click
+        expect(find(:id,'trial-count')).to have_content("1")
+        expect(find(:id,'correct-ratio')).to have_content("100")
+        find('#learn-wrapper').click
+        find(:id, "wrong-btn").click
+        find(:xpath, '//*[@id="learn-operation"]/div[2]/div[2]').click
+        expect(find(:id,'trial-count')).to have_content("2")
+        expect(find(:id,'correct-ratio')).to have_content("50")
       end
     end
   end

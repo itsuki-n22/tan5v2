@@ -10,6 +10,8 @@ require 'rspec/rails'
 
 Capybara.register_driver :remote_chrome do |app|
     
+  # 要修正 windows wsl2 から vncを用いて グラフィカルにテストする方法
+  # 要修正 csvのダウンロードがテストでは機能しない点。おそらくchromedriverの設定
   url = "http://chrome:4444/wd/hub"
   caps = ::Selenium::WebDriver::Remote::Capabilities.chrome(
     "goog:chromeOptions" => {
@@ -17,12 +19,40 @@ Capybara.register_driver :remote_chrome do |app|
         "no-sandbox",
         "headless",
         "disable-gpu",
-      #  "--disable-dev-shm-usage",
-        "window-size=1680,1050"
-      ]
+        "--disable-dev-shm-usage",
+        "window-size=1920,1080"
+      ],
+      "prefs": {
+        "download": { 
+          "default_directory": DownloadHelper::PATH.to_s
+         }
+      }
     }
   )
   Capybara::Selenium::Driver.new(app, browser: :remote, url: url, desired_capabilities: caps)
+
+
+  chrome_options = Selenium::WebDriver::Chrome::Options.new
+  chrome_options.headless!
+  %w(
+    no-sandbox
+    disable-gpu
+    window-size=1440,900
+    disable-desktop-notifications
+    disable-extensions
+    blink-settings=imagesEnabled=false
+    lang=ja
+  ).each { |option| chrome_options.add_argument(option) }
+  # ダウンロードディレクトリを設定
+  chrome_options.add_preference(:download, default_directory: "/tmp/download")
+  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(chrome_options.as_json)
+ Capybara::Selenium::Driver.new(
+      app,
+      url: url,
+      options: chrome_options,
+      browser: :remote,
+      desired_capabilities: capabilities,
+  )
 end
 
 Capybara.server_host = '0.0.0.0'
@@ -56,6 +86,12 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 RSpec.configure do |config|
 
+  # download_helper.rb の設定
+  config.include DownloadHelper, type: :system, js: true
+  config.before(:suite) { Dir.mkdir(DownloadHelper::PATH) unless Dir.exist?(DownloadHelper::PATH) }
+  config.after(:example, type: :system, js: true) { clear_downloads }
+
+
   config.before(:each, type: :system) do
     driven_by :rack_test
   end
@@ -65,6 +101,7 @@ RSpec.configure do |config|
     Capybara.server_host = IPSocket.getaddress(Socket.gethostname)
     Capybara.server_port = 3001
     Capybara.app_host = "http://#{Capybara.server_host}:#{Capybara.server_port}"
+#    page.driver.browser.download_path = DownloadHelper::PATH
 
     #if ENV["SELENIUM_DRIVER_URL"].present?
     #  driven_by :selenium, using: :chrome, options: {
