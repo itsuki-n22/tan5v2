@@ -2,6 +2,7 @@ require 'csv'
 
 class WordnotesController < Base
   before_action :current_user
+  before_action :access_check, only: %i[show]
 
   def show
     @user = User.find(params[:user_id])
@@ -30,12 +31,12 @@ class WordnotesController < Base
 
     if @tangos.size == 0
       flash[:success] = '表示できる単語がありません。'
-      redirect_to :root
+      redirect_back(fallback_location: root_path)
     end
   end
 
   def create
-    p @wordnote = @current_user.wordnotes.new(wordnote_params)
+    @wordnote = @current_user.wordnotes.new(wordnote_params)
     @user = @current_user
     @wordnotes = @user.wordnotes.all if @wordnote.save
     render 'create.js.erb'
@@ -116,7 +117,15 @@ class WordnotesController < Base
     end
   end
 
-  private def wordnote_params
-    params.require(:wordnote).permit(:name, :subject, :is_open)
-  end
+  private 
+    def wordnote_params
+      params.require(:wordnote).permit(:name, :subject, :is_open)
+    end
+    def access_check
+      wordnote = Wordnote.find(params[:id])
+      if !wordnote.is_open? && wordnote.user_id != @current_user.id
+        flash[:danger] = 'アクセス権がありません'
+        redirect_to :root 
+      end
+    end
 end

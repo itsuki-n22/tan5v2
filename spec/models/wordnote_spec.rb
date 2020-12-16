@@ -10,7 +10,6 @@
 #  updated_at :datetime         not null
 #  user_id    :bigint           not null
 #
-require 'rails_helper'
 
 RSpec.describe Wordnote, type: :model do
   describe 'バリデーション' do

@@ -7,15 +7,17 @@ describe 'Wordnote', type: :system, js: true do
 
     before do 
       login_as(user)
-      visit user_wordnote_path(user_id: other_user, id: other_wn)
     end
 
-    xexample '他人の非公開設定の単語帳にアクセスできないこと' do
-    # 要修正 controllerで権限管理をする
-      expect(page).not_to have_content(tangos.first.question)
+    example '他人の非公開設定の単語帳にアクセスできないこと' do
+      other_wn.update(is_open: false)
+      p other_wn
+      visit user_wordnote_path(user_id: other_user, id: other_wn)
+      expect(page).not_to have_content(tango.question)
     end
    
     example '他人の単語帳では単語一覧が表示できないこと' do
+      visit user_wordnote_path(user_id: other_user, id: other_wn)
       expect( find('#show-tangos') ).not_to have_content('問題を全て見る')
     end
   end
@@ -116,7 +118,7 @@ describe 'Wordnote', type: :system, js: true do
         expect(current_path).to eq(user_path(user))
       end
      
-      example 'ヒントモーダルが正常に起動すること', point: true do
+      example 'ヒントモーダルが正常に起動すること' do
         find('#hint-btn').click
         expect(page).to have_content('閉じる')
         expect(page).to have_content(tangos.first.hint)

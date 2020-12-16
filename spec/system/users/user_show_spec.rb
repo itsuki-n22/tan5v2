@@ -276,8 +276,7 @@ describe 'User', type: :system, js: true do
         end
       end
 
-      xexample '単語帳名をクリックしても単語が0ならページを移動しないこと' do
-      ## 要修正　/　に移動してしまっている。
+      example '単語帳名をクリックしても単語が0ならページを移動しないこと' do
         within "#created-wordnotes #wordnote-no-#{other_wn1.id}" do
           click_link other_wn1.name
           expect(current_path).to eq user_path(other_user)
@@ -322,7 +321,7 @@ describe 'User', type: :system, js: true do
       expect(find(:id , 'profile-image-preview')[:src]).to include 'profile.jpg'
     end
 
-    xexample 'パスワードが間違っている場合登録できないこと' do
+    xexample 'パスワードが間違っている場合登録できないこと', point: true do
       ## 要修正 パスワードを修正してしまう。
       visit edit_user_path @user
       find(:id , 'user_password').send_keys 'hoge'
