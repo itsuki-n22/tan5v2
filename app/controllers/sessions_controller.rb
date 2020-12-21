@@ -12,7 +12,7 @@ class SessionsController < Base
     @form = LoginForm.new(login_form_params)
     user = User.find_by('LOWER(email) = ?', @form.email.downcase) if @form.email.present?
     @save = false
-    if Authenticator.new(user).authenticate(@form.password)
+    if user.authenticate(@form.password) #Authenticator.new(user).authenticate(@form.password)
       session[:user_id] = user.id
       @save = true
       flash[:success] = 'ログイン成功'

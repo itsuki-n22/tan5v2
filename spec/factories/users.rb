@@ -5,8 +5,8 @@
 #  id              :bigint           not null, primary key
 #  admin           :boolean          default(FALSE)
 #  email           :string           not null
-#  hashed_password :string
 #  name            :string           not null
+#  password_digest :string           not null
 #  profile         :string
 #  profile_image   :string
 #  suspended       :boolean          default(FALSE), not null

@@ -1,8 +1,8 @@
 <% @title = "新規登録" %>
-<h1 class="signup-form"><%= @title %></h1>
 
-<div id="signup-form">
- <%= form_with model: @user, url: [ @user] do |f| %>
-   <%= render "form", f: f %>
- <% end %>
+<div id="user-form">
+  <h4 id="user-form-title"><%= @title %></h4>
+  <%= form_with model: @user, url: :users, local: true do |f| %>
+    <%= render "form", f: f %>
+  <% end %>
 </div>

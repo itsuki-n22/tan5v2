@@ -5,8 +5,8 @@
 #  id              :bigint           not null, primary key
 #  admin           :boolean          default(FALSE)
 #  email           :string           not null
-#  hashed_password :string
 #  name            :string           not null
+#  password_digest :string           not null
 #  profile         :string
 #  profile_image   :string
 #  suspended       :boolean          default(FALSE), not null
@@ -19,6 +19,7 @@
 #  index_users_on_name         (name)
 #
 class User < ApplicationRecord
+  has_secure_password
   paginates_per 20
   include StringNormalizer
   has_many :wordnotes, class_name: 'Wordnote', dependent: :destroy
@@ -45,13 +46,13 @@ class User < ApplicationRecord
     favorite.to_a.find { |conf| conf.wordnote_id == wordnote_id }
   end
 
-  def password=(raw_password)
-    if raw_password.is_a?(String)
-      self.hashed_password = BCrypt::Password.create(raw_password)
-    elsif raw_password.nil?
-      self.hashed_password = nil
-    end
-  end
+  #def password=(raw_password)
+  #  if raw_password.is_a?(String)
+  #   self.hashed_password = BCrypt::Password.create(raw_password)
+  #  elsif raw_password.nil?
+  #    self.hashed_password = nil
+  #  end
+  #end
 
   private def profile_image_size
     errors.add(:profile_image, 'should be less than 1MB') if profile_image.size > 1.megabytes

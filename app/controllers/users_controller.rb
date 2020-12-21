@@ -13,8 +13,6 @@ class UsersController < Base
   end
 
   def show
-    p "-----------------------"
-    p params
     @user = User.find(params[:id])
     @wordnotes = User.find(params[:id]).wordnotes.includes(:user, :tangos).order(updated_at: :asc)
     @tango = @user.wordnotes.build.tangos.build
@@ -79,27 +77,30 @@ class UsersController < Base
     @users = @users.page(params[:page]).order(updated_at: :desc)
     render 'users/index'
   end
-
-  private def user_params
-    params.require(:user).permit(
-      :email, :password, :name,
-      :suspended, :profile, :profile_image
-    )
-  end
-
-  private def correct_user
-    if @current_user != User.find_by(id: params[:id]) && @current_user.admin? != true
-      flash[:danger] = 'アクセス権がありません'
-      redirect_to :root
+   
+  private
+    def user_params
+      params.require(:user).permit(
+        :email, :password, :name,
+        :suspended, :profile, :profile_image
+      )
     end
-  end
-  private def authorize
-    unless @current_user.admin?
-      flash[:danger] = '管理者としてアクセス権がありません'
-      redirect_to :root
+
+    def correct_user
+      if @current_user != User.find_by(id: params[:id]) && @current_user.admin? != true
+        flash[:danger] = 'アクセス権がありません'
+        redirect_to :root
+      end
     end
-  end
-  private def logged_in?
-    redirect_to :root if @current_user.nil?
-  end
+
+    def authorize
+      unless @current_user.admin?
+        flash[:danger] = '管理者としてアクセス権がありません'
+        redirect_to :root
+      end
+    end
+
+    def logged_in?
+      redirect_to :root if @current_user.nil?
+    end
 end
