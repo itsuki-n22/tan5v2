@@ -18,7 +18,6 @@
 #  index_users_on_LOWER_email  (lower((email)::text)) UNIQUE
 #  index_users_on_name         (name)
 #
-require 'rails_helper'
 
 RSpec.describe User, type: :model do
   describe '#password=' do
