@@ -21,16 +21,16 @@
 
 RSpec.describe User, type: :model do
   describe '#password=' do
-    example '文字列を与えると、hashed_passwordは60文字になる' do
+    example '文字列を与えると、password_digestは60文字になる' do
       user = User.new
       user.password = 'password'
-      expect(user.hashed_password).to be_kind_of(String)
-      expect(user.hashed_password.size).to eq(60)
+      expect(user.password_digest).to be_kind_of(String)
+      expect(user.password_digest.size).to eq(60)
     end
-    example 'nilを与えると、hashed_passwordはnilになる' do
+    example 'nilを与えると、password_digestはnilになる' do
       user = User.new
       user.password = nil
-      expect(user.hashed_password).to be_nil
+      expect(user.password_digest).to be_nil
     end
   end
 

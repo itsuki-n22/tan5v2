@@ -20,8 +20,11 @@ class UsersController < Base
   end
 
   def create
+
     @user = User.new(user_params)
-    if @user.save
+    @user.email = @user.email.downcase
+    if @user.authenticate(@user.password) && @user.save 
+      session[:user_id] = @user.id
       flash[:success] = 'ユーザーを登録しました'
       redirect_to :root
     else
@@ -32,14 +35,13 @@ class UsersController < Base
 
   def update
     @user = current_user
-    @user = User.find_by(id: params[:id]) if @current_user.admin?
     @user.assign_attributes(user_params)
     if @user.save
       flash[:success] = '登録情報を更新しました'
       redirect_to user_path(@user)
     else
       flash.now[:danger] = @user.errors.messages.to_a.join('')
-      render action: 'new'
+      render action: 'edit'
     end
   end
 
@@ -80,7 +82,7 @@ class UsersController < Base
   private
     def user_params
       params.require(:user).permit(
-        :email, :password, :name,
+        :name, :email, :password, :password_confirmation,
         :suspended, :profile, :profile_image
       )
     end

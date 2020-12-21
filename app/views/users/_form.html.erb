@@ -35,10 +35,12 @@
     <i class="fas fa-window-close"></i> キャンセル
   <% end %>
   </div>
-  <div class="ml-auto">
-  <%= link_to :session, method: :delete, class: "logout-btn btn btn-outline-info" do %>
-    <i class="fas fa-sign-out-alt"></i> ログアウト
+  <% if !current_page?(new_user_path) %>
+    <div class="ml-auto">
+    <%= link_to :session, method: :delete, class: "logout-btn btn btn-outline-info" do %>
+      <i class="fas fa-sign-out-alt"></i> ログアウト
+    <% end %>
+    </div>
   <% end %>
-  </div>
 </div>
 

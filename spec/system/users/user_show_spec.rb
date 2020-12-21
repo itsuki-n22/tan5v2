@@ -1,31 +1,5 @@
 describe 'User', type: :system, js: true do
 
-  describe 'ユーザー一覧/検索画面' do
-
-    let!(:user) { create(:user, name: "test1") }
-    let!(:user2) { create(:user, name: "test2") }
-    before do 
-      8.times{ create(:user) } 
-      login_as(user)
-    end
-    
-    example 'ユーザーがすべて表示されること' do
-      within '#navbarSupportedContent' do
-        find(:xpath, "//*[contains(@class, 'btn-outline-success')]").click
-      end
-      expect(all(:xpath, "//*[contains(@id, 'user-no-')]").size).to eq(10)
-    end
-
-    example '文字列を含むユーザーのみが表示されること' do
-      within '#navbarSupportedContent' do
-        fill_in 'search_word', with: 'test'
-        find(:xpath, "//*[contains(@class, 'btn-outline-success')]").click
-      end
-      expect(all(:xpath, "//*[contains(@id, 'user-no-')]").size).to eq(2)
-    end
-      
-  end
-
   describe 'users/show' do
     context 'はじめてのログイン' do
 
@@ -41,11 +15,12 @@ describe 'User', type: :system, js: true do
         expect(find(:xpath, '//*[@class="user-created_at"]').text).to have_content user.created_at.to_s.split(' ').first
       end
 
-      example '単語帳を登録できること' do
+      example '単語帳を登録できること', point: true do
         find(:id, 'build-wordnote-btn').click
         find(:id, 'wordnote_name').send_keys 'sample'
         fill_in 'wordnote_subject', with: 'English'
         click_button '単語帳を作成'
+        sleep 1 #これを入れないと不安定
         expect(page).to have_content 'sample'
         expect(page).to have_content 'English'
         expect(page).to have_content '単語を登録'
@@ -290,49 +265,6 @@ describe 'User', type: :system, js: true do
           expect(current_path).to eq user_wordnote_path(user_id: other_wn1.user_id, id: other_wn1.id)
         end
       end
-    end
-  end
-
-  describe 'ユーザー登録情報変更画面' do
-    let(:user) { create(:user) }
-    before { login_as(@user = user) }
-    
-    example 'フォームに初期値が正しく設定されていること' do
-      visit edit_user_path @user
-      expect(find(:id , 'user_email').value).to eq @user.email
-      expect(find(:id , 'user_name').value).to eq @user.name
-      expect(find(:id , 'user_profile').value).to eq @user.profile
-      expect(find(:id , 'profile-image-preview')[:src]).to include 'no_image.png'
-    end
-
-    example 'ユーザー情報を更新できること' do
-      visit edit_user_path @user
-      fill_in 'user_email', with: 'xx@xx.xx'
-      fill_in 'user_name', with: 'abc'
-      fill_in 'user_profile', with: 'def'
-      fill_in 'user_password', with: 'password'
-      attach_file 'user_profile_image', Rails.root.join('spec','fixtures', 'fixture.jpg')
-      click_button '登録'
-      expect(page).to have_content '登録情報を更新しました'
-      visit edit_user_path @user
-      expect(find(:id , 'user_email').value).to eq 'xx@xx.xx'
-      expect(find(:id , 'user_name').value).to eq 'abc'
-      expect(find(:id , 'user_profile').value).to eq 'def'
-      expect(find(:id , 'profile-image-preview')[:src]).to include 'profile.jpg'
-    end
-
-    xexample 'パスワードが間違っている場合登録できないこと', point: true do
-      ## 要修正 パスワードを修正してしまう。
-      visit edit_user_path @user
-      find(:id , 'user_password').send_keys 'hoge'
-      click_button '登録'
-      expect(page).not_to have_content '登録情報を更新しました'
-    end
-
-    example '画像をアップロードした場合、プレビュー表示の画像が変更されること' do
-      visit edit_user_path @user
-      attach_file 'user_profile_image', Rails.root.join('spec','fixtures', 'fixture.jpg')
-      expect(find(:id , 'profile-image-preview')[:src]).not_to include 'no_image.png'
     end
   end
 

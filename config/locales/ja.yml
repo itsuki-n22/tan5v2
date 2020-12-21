@@ -1,0 +1,31 @@
+ja:
+  activerecord:
+    models:
+      user: 'ユーザー'
+      wordnote: '単語帳' 
+      tango: '問題' 
+    attributes:
+      user:
+        email: 'メールアドレス'
+        name: 'ユーザー名'
+        profile: 'プロフィール'
+        profile_image: 'アバター'
+        password: 'パスワード'
+        password_confirmation: 'パスワード確認'
+      wordnote:
+        subject: '科目'
+        name: '名前'
+        is_open: '公開する'
+      tango:
+        answer: '問題'
+        question: '答え'
+        hint: 'ヒント'
+
+  attributes:
+    created_at: '作成日時'
+    updated_at: '更新日時'
+  time:
+    formats:
+      default: "%Y年%m月%d日(%a) %H時%M分%S秒 %z"
+      long: "%Y/%m/%d %H:%M"
+      short: "%m/%d %H:%M"

@@ -27,8 +27,8 @@ services:
     ports:
       - '4444:4444'
     #  - '5555:5555'
-    volumes:
-      - ./tmp/download:/tmp/download
+    #volumes:
+    #  - ./tmp/download:/tmp/download
 volumes:
   postgresql-data:
     driver: local
