@@ -4,8 +4,9 @@ jobs: # 一連のステップ
     parallelism: 1 # 何個並列でCIを走らせるか。無料版だと1しか無理。
     docker: # Docker でステップを実行します
       - image: circleci/ruby:2.7.1-node-browsers
+        environment:
           RAILS_ENV: test
-          DB_HOST: 127.0.0.1
+          #DB_HOST: 127.0.0.1
       - image: circleci/postgres:9.5-alpine
         environment:
           POSTGRES_USER: postgres
