@@ -1,0 +1,24 @@
+version: "3"
+services:
+  nginx:
+    build: containers/nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - web
+    volumes:
+      - ./tmp/sockets:/tan5/tmp/sockets
+      - ./public:/tan5/public
+
+  web:
+    build: .
+    environment:
+      RAILS_ENV: production
+    tty: true
+    stdin_open: true
+    volumes: 
+      - .:/tan5
+      - ./public:/tan5/public
+      - ./tmp:/tan5/tmp
+      - ./log:/tan5/log
+    
