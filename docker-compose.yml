@@ -10,6 +10,7 @@ services:
       - web
     volumes:
       - ./tmp/sockets:/tan5/tmp/sockets
+      - ./tmp/pids:/tan5/tmp/pids
       - ./public:/tan5/public
   db:
     image: postgres

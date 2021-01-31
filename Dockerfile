@@ -43,6 +43,7 @@ RUN yarn install --check-files
 
 # for nginx
 RUN mkdir -p tmp/sockets
-VOLUME /tan5/public
-VOLUME /tan5/tmp
+RUN mkdir -p tmp/pids
+#VOLUME /tan5/public
+#VOLUME /tan5/tmp
 CMD bundle exec puma
