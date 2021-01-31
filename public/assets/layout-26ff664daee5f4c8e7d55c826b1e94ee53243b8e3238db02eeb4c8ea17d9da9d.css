@@ -1,0 +1,129 @@
+/* line 1, app/assets/stylesheets/layout.scss */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* line 2, app/assets/stylesheets/layout.scss */
+.title-logo-img {
+  height: 2.25rem;
+}
+
+/* line 3, app/assets/stylesheets/layout.scss */
+a:hover {
+  text-decoration: none !important;
+}
+
+/* line 4, app/assets/stylesheets/layout.scss */
+.hidden {
+  display: none !important;
+}
+
+/* line 5, app/assets/stylesheets/layout.scss */
+.alert {
+  width: 100%;
+  display: block;
+}
+
+/* line 6, app/assets/stylesheets/layout.scss */
+#flash-message {
+  position: fixed;
+  z-index: 100;
+}
+
+/* line 9, app/assets/stylesheets/layout.scss */
+footer {
+  bottom: 0;
+  width: 100%;
+  background-color: #666666;
+  color: #eeeeee;
+}
+
+/* line 14, app/assets/stylesheets/layout.scss */
+footer p {
+  text-align: center;
+  padding: 5px;
+  margin: 0;
+}
+
+/* line 21, app/assets/stylesheets/layout.scss */
+div#wrapper {
+  position: relative;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding-bottom: 48px;
+  background-color: #fafafa;
+  min-height: 100%;
+  color: #404040;
+}
+
+/* line 33, app/assets/stylesheets/layout.scss */
+.modal {
+  display: none;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  overflow-y: scroll;
+}
+
+/* line 39, app/assets/stylesheets/layout.scss */
+.modal #hint-text {
+  font-size: x-large;
+}
+
+/* line 40, app/assets/stylesheets/layout.scss */
+.modal p {
+  margin: 20px 0px;
+}
+
+/* line 43, app/assets/stylesheets/layout.scss */
+.modal__bg {
+  background: rgba(0, 0, 0, 0.1);
+  height: 100vh;
+  position: absolute;
+  width: 100%;
+}
+
+/* line 49, app/assets/stylesheets/layout.scss */
+.modal__content {
+  background: white;
+  left: 50%;
+  padding: 40px;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  max-width: 700px;
+}
+
+/* line 64, app/assets/stylesheets/layout.scss */
+.blink {
+  animation: blink 0.4s infinite alternate;
+}
+
+@keyframes blink {
+  from {
+    opacity: 2;
+  }
+  to {
+    opacity: 0.5;
+  }
+}
+
+/* line 75, app/assets/stylesheets/layout.scss */
+* {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+/* line 79, app/assets/stylesheets/layout.scss */
+.d-flex:not(.flex-column) > * {
+  min-width: 0;
+}
+
+/* line 82, app/assets/stylesheets/layout.scss */
+.d-flex.flex-column > * {
+  max-width: 100%;
+}

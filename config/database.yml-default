@@ -83,6 +83,10 @@ test:
 #
 production:
   <<: *default
-  database: tan5_production
-  username: tan5
-  password: <%= ENV['TAN5_DATABASE_PASSWORD'] %>
+  #database: tan5_production
+  #username: tan5
+  #password: <%= ENV['TAN5_DATABASE_PASSWORD'] %>
+  host: <%= Rails.application.credentials.rds[:host] %>
+  database: <%= Rails.application.credentials.rds[:database] %>
+  username: <%= Rails.application.credentials.rds[:username] %>
+  password: <%= Rails.application.credentials.rds[:password] %>
