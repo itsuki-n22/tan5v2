@@ -4,6 +4,8 @@ services:
     build: containers/nginx
     ports:
       - "80:80"
+    tty: true
+    stdin_open: true
     depends_on:
       - web
     volumes:

@@ -2,16 +2,6 @@ version: "3"
 
 ## 本番環境は docker-compose -f prod.yml up を実行
 services:
-  nginx:
-    build: containers/nginx
-    ports:
-      - "80:80"
-    depends_on:
-      - web
-    volumes:
-      - ./tmp/sockets:/tan5/tmp/sockets
-      - ./tmp/pids:/tan5/tmp/pids
-      - ./public:/tan5/public
   db:
     image: postgres
     ports: 
@@ -23,25 +13,21 @@ services:
 
   web:
     build: .
-    #command: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'" 
+    command: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'" 
     tty: true
     stdin_open: true
     depends_on: 
       - db
       - chrome
-    #ports:
-    #  - '3000:3000'
+    ports:
+      - '3000:3000'
     volumes: 
       - .:/tan5
   chrome:
     image: selenium/standalone-chrome:latest
-    #image: selenium/standalone-chrome-debug:latest
     ports:
       - '4444:4444'
-    #  - '5555:5555'
-    #volumes:
-    #  - ./tmp/download:/tmp/download
-volumes:
-  postgresql-data:
-    driver: local
+#volumes:
+#  postgresql-data:
+#    driver: local
     
