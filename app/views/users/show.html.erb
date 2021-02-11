@@ -7,7 +7,7 @@
       <div id="profile-box" class="shadow-sm pb-5">
         <div class="user-profile-image">
           <%= image_tag @user.profile_image.url if @user.profile_image? %>
-          <%= image_tag '/uploads/user/profile_image/no_data/no_image.png' if @user.profile_image? == false %>
+          <%= image_tag '/no_image.png' if @user.profile_image? == false %>
         </div>
         <div class="user-name">
           <h1><%= @user.name %></h1>
