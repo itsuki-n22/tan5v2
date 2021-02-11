@@ -16,8 +16,8 @@
 #  index_tangos_on_wordnote_id_and_created_at  (wordnote_id,created_at)
 #
 class Tango < ApplicationRecord
-  belongs_to :wordnote, class_name: 'Wordnote', foreign_key: 'wordnote_id'
-  has_many :tango_datum, class_name: 'TangoDatum', dependent: :destroy
+  belongs_to :wordnote
+  has_many :tango_datum, dependent: :destroy
 
   validates :question, presence: true, length: {in: 1..3000}
   validates :answer, presence: true, length: {in: 1..3000}

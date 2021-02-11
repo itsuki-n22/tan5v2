@@ -21,6 +21,5 @@
 #
 class TangoDatum < ApplicationRecord
   belongs_to :user
-  belongs_to :wordnote
   belongs_to :tango
 end

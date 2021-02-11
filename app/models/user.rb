@@ -22,10 +22,10 @@ class User < ApplicationRecord
   has_secure_password
   paginates_per 20
   include StringNormalizer
-  has_many :wordnotes, class_name: 'Wordnote', dependent: :destroy
-  has_many :tango_datum, class_name: 'TangoDatum', dependent: :destroy
-  has_many :tango_config, class_name: 'TangoConfig', dependent: :destroy
-  has_many :favorite, class_name: 'Favorite', dependent: :destroy
+  has_many :wordnotes, dependent: :destroy
+  has_many :tango_datum, dependent: :destroy
+  has_many :tango_config, dependent: :destroy
+  has_many :favorite, dependent: :destroy
   has_many :favorite_wordnotes, through: :favorite, source: :wordnote
   mount_uploader :profile_image, ProfileImageUploader
   validate :profile_image_size

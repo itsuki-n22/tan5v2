@@ -11,11 +11,10 @@
 #  user_id    :bigint           not null
 #
 class Wordnote < ApplicationRecord
-  belongs_to :user, class_name: 'User', foreign_key: 'user_id'
+  belongs_to :user
   validates :name, presence: true, length: { maximum: 50 }
   validates :subject, presence: true, length: { maximum: 50 }
-  has_many :tangos, class_name: 'Tango', dependent: :destroy
-  has_many :tango_datum, class_name: 'TangoDatum', dependent: :destroy
-  has_many :tango_config, class_name: 'TangoConfig', dependent: :destroy
-  has_many :favorite, class_name: 'Favorite', dependent: :destroy
+  has_many :tangos, dependent: :destroy
+  has_many :tango_config, dependent: :destroy
+  has_many :favorite, dependent: :destroy
 end
