@@ -1,5 +1,4 @@
 class FavoritesController < Base
-  before_action :current_user
 
   def change
     @favorite = @current_user.favorite.find_by(wordnote_id: favorite_params[:wordnote_id])

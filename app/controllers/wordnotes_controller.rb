@@ -1,14 +1,10 @@
-require 'csv'
-
 class WordnotesController < Base
-  before_action :current_user
   before_action :access_check, only: %i[show]
 
   def show
     @user = User.find(params[:user_id])
     @wordnote = @user.wordnotes.find(params[:id])
-    @tango_config = @current_user.tango_config.find_by(wordnote_id: params[:id])
-    if @tango_config.nil?
+    unless @tango_config = @current_user.tango_config.find_by(wordnote_id: params[:id])
       @tango_config = @current_user.tango_config.build(wordnote_id: params[:id], font_size: 32, filter: 0)
     end
     @tango_config.clicked_num += 1
@@ -71,20 +67,19 @@ class WordnotesController < Base
 
   def upload_csv
     return @no_file_error = true if params[:csv_file].nil?
-    return @file_size_error = true if params[:csv_file].size > 500_000
+    return @file_size_error = true if params[:csv_file].size > 500000
 
     wordnote = @current_user.wordnotes.find(params[:wordnote_id])
-    @tangos = wordnote.tangos.all
-    current_tangos_count = @tangos.count
+    @tangos = wordnote.tangos
 
     new_tangos = []
     update_tangos = []
-    id_dup_check = []
     now = Time.current
 
     CSV.foreach(params[:csv_file].path, headers: true, encoding: 'utf-8') do |row|
       new_tangos << { id: row['id'].to_i, wordnote_id: wordnote.id, answer: row['answer'], question: row['question'], hint: row['hint'], created_at: now, updated_at: now }
     end
+
     new_tangos.delete_if do |new_tango|
       delete_flag = false
       @tangos.each do |old_tango|
@@ -94,7 +89,6 @@ class WordnotesController < Base
               && old_tango.question == new_tango[:question] \
               && old_tango.hint == new_tango[:hint]
             update_tangos << new_tango
-            id_dup_check << new_tango[:id]
           end
           break
         elsif old_tango.answer == new_tango[:answer] \
@@ -106,8 +100,7 @@ class WordnotesController < Base
       delete_flag # ここがtrueなら削除
     end
     new_tangos.map { |t| t.delete(:id) }
-    id_dup_flag = true if (id_dup_check.count - id_dup_check.uniq.count) > 0
-    # raise if id_dup_flag == true
+
     begin
       @tangos.insert_all new_tangos if new_tangos.empty? == false
       @tangos.upsert_all update_tangos if update_tangos.empty? == false
@@ -118,9 +111,11 @@ class WordnotesController < Base
   end
 
   private 
+
     def wordnote_params
       params.require(:wordnote).permit(:name, :subject, :is_open)
     end
+
     def access_check
       wordnote = Wordnote.find(params[:id])
       if !wordnote.is_open? && wordnote.user_id != @current_user.id

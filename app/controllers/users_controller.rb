@@ -1,5 +1,4 @@
 class UsersController < Base
-  before_action :current_user
   before_action :logged_in?, except: %i[new create]
   before_action :correct_user, only: %i[edit update destroy]
   before_action :logged_in_user_can_not_access, only: %i[new create]
@@ -20,7 +19,6 @@ class UsersController < Base
   end
 
   def create
-
     @user = User.new(user_params)
     @user.email = @user.email.downcase
     if @user.authenticate(@user.password) && @user.save 
@@ -47,7 +45,6 @@ class UsersController < Base
 
   def edit
     @user = @current_user
-    @user = User.find(params[:id]) if @current_user.admin?
   end
 
   def destroy
@@ -55,15 +52,6 @@ class UsersController < Base
     flash[:success] = "#{@user.name}:ユーザーを削除しました"
     @user.destroy!
     redirect_to :root
-  end
-
-  def suspend
-    @user = User.find_by(id: params[:id])
-    status = (@user.suspended? ? false : true)
-    if @user.update_column(:suspended, status)
-      flash[:success] = "#{@user.name}:状態を変更しました"
-      redirect_to :root
-    end
   end
 
   def search
@@ -80,6 +68,7 @@ class UsersController < Base
   end
    
   private
+
     def user_params
       params.require(:user).permit(
         :name, :email, :password, :password_confirmation,

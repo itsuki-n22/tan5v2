@@ -6,8 +6,11 @@
     <div id="user-show-left" class="col-lg-6">
       <div id="profile-box" class="shadow-sm pb-5">
         <div class="user-profile-image">
-          <%= image_tag @user.profile_image.url if @user.profile_image? %>
-          <%= image_tag '/no_image.png' if @user.profile_image? == false %>
+          <% if @user.profile_image? %>
+            <%= image_tag @user.profile_image.url %>
+          <% else %>
+            <%= image_tag @user.profile_image.default_url %>
+          <% end %>
         </div>
         <div class="user-name">
           <h1><%= @user.name %></h1>

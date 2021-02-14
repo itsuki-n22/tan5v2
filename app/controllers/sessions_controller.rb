@@ -29,7 +29,9 @@ class SessionsController < Base
     redirect_to :root
   end
 
-  private def login_form_params
+  private
+
+  def login_form_params
     params.require(:login_form).permit(:email, :password)
   end
 end

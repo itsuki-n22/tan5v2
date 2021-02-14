@@ -1,5 +1,4 @@
 class TangosController < Base
-  before_action :current_user
 
   def index
     @user = User.find(params[:user_id])
@@ -45,10 +44,6 @@ class TangosController < Base
   end
 
   private
-
-  def tango_csv_params
-    params.require(:tango)
-  end
 
   def tango_params
     params.require(:tango).permit(:wordnote_id, :question, :answer, :hint)
