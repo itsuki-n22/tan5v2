@@ -7,19 +7,10 @@ class WordnotesController < Base
     unless @tango_config = @current_user.tango_config.find_by(wordnote_id: params[:id])
       @tango_config = @current_user.tango_config.build(wordnote_id: params[:id], font_size: 32, filter: 0)
     end
+
     @tango_config.clicked_num += 1
     @tango_config.save
-
-    @tangos = case @tango_config.sort
-              when 'desc'
-                @wordnote.tangos.desc_with_datum
-              when 'random'
-                @wordnote.tangos.random_with_datum
-              else
-                @wordnote.tangos.asc_with_datum
-              end
-
-    @tangos = @tangos.reject do |tango|
+    @tangos = @tango_config.sorted_tangos.reject do |tango|
       star = 0
       star = tango.tango_datum.first.star if tango.tango_datum.first # tango has_one tango_datum に変更すべし
       star < @tango_config.filter.to_i
@@ -27,7 +18,7 @@ class WordnotesController < Base
 
     if @tangos.size == 0
       flash[:success] = '表示できる単語がありません。'
-      redirect_back(fallback_location: root_path)
+      redirect_back(fallback_location: root_path) #前見ていたページにを表示する
     end
   end
 
@@ -35,7 +26,6 @@ class WordnotesController < Base
     @wordnote = @current_user.wordnotes.new(wordnote_params)
     @user = @current_user
     @wordnotes = @user.wordnotes.all if @wordnote.save
-    render 'create.js.erb'
   end
 
   def update
@@ -52,7 +42,6 @@ class WordnotesController < Base
   end
 
   def download_csv
-    # 本人以外がDLできるかは後で設定
     @user = User.find(params[:user_id])
     @wordnote = @user.wordnotes.find(params[:wordnote_id])
     explain_str = '#このファイルをアップロードする場合、IDが一致している単語はその単語を修正します。answerとquestionの組み合わせがすでに存在する単語ペアはアップロードされません。この行は削除しないでください。'

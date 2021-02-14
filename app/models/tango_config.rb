@@ -30,4 +30,15 @@ class TangoConfig < ApplicationRecord
   belongs_to :wordnote
   validates :user, presence: true
   validates :wordnote, presence: true
+
+  def sorted_tangos
+    case sort
+    when 'desc'
+      wordnote.tangos.desc_with_datum
+    when 'random'
+      wordnote.tangos.random_with_datum
+    else
+      wordnote.tangos.asc_with_datum
+    end
+  end
 end
