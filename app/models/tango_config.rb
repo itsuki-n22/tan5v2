@@ -41,4 +41,11 @@ class TangoConfig < ApplicationRecord
       wordnote.tangos.asc_with_datum
     end
   end
+
+  def tangos_by_config
+    sorted_tangos.reject do |tango|
+      star = tango.tango_datum ? tango.tango_datum.star : 0
+      star < filter.to_i
+    end
+  end
 end

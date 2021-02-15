@@ -17,7 +17,7 @@
 #
 class Tango < ApplicationRecord
   belongs_to :wordnote
-  has_many :tango_datum, dependent: :destroy
+  has_one :tango_datum, dependent: :destroy
 
   validates :question, presence: true, length: {in: 1..3000}
   validates :answer, presence: true, length: {in: 1..3000}

@@ -10,10 +10,11 @@ class WordnotesController < Base
 
     @tango_config.clicked_num += 1
     @tango_config.save
-    @tangos = @tango_config.sorted_tangos.reject do |tango|
-      star = 0
-      star = tango.tango_datum.first.star if tango.tango_datum.first # tango has_one tango_datum に変更すべし
-      star < @tango_config.filter.to_i
+
+    @tangos = @tango_config.tangos_by_config
+    if @tangos.size == 0 && @tango_config.filter.to_i > 0 # フィルターの設定で単語が表示されなくなる場合の対策
+      @tango_config.update_attribute(:filter, 0)
+      @tangos = @tango_config.sorted_tangos 
     end
 
     if @tangos.size == 0
@@ -112,4 +113,5 @@ class WordnotesController < Base
         redirect_to :root 
       end
     end
+
 end
