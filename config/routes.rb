@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   post 'change_favorite', to: 'favorites#change'
   post 'change_tango_config', to: 'tango_configs#change'
 
-  resources :users, shallow: true do
+  resources :users, shallow: true, except: %i[destroy] do
     get :search, on: :collection
     get :suspend, on: :member
     resources :wordnotes, only: [:show], shallow: false do
