@@ -15,6 +15,6 @@ class Wordnote < ApplicationRecord
   validates :name, presence: true, length: { maximum: 50 }
   validates :subject, presence: true, length: { maximum: 50 }
   has_many :tangos, dependent: :destroy
-  has_many :tango_config, dependent: :destroy
-  has_many :favorite, dependent: :destroy
+  has_many :tango_configs, dependent: :destroy
+  has_many :favorites, dependent: :destroy
 end

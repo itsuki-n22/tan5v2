@@ -1,5 +1,4 @@
-<% if @current_user.tango_config && @current_user.get_tango_config(wordnote_id: wordnote.id) %>
-  <% tango_config = @current_user.get_tango_config(wordnote_id: wordnote.id) %>
+<% if @current_user.tango_configs && tango_config = @current_user.tango_configs.where(wordnote_id: wordnote.id).first %>
   <%= hidden_field_tag "sort-#{wordnote.id}", tango_config.sort %>
   <%= hidden_field_tag "continue-#{wordnote.id}", tango_config.continue %>
   <%= hidden_field_tag "font_size-#{wordnote.id}", tango_config.font_size %>

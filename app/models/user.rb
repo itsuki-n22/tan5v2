@@ -23,10 +23,10 @@ class User < ApplicationRecord
   paginates_per 20
   include StringNormalizer
   has_many :wordnotes, dependent: :destroy
-  has_many :tango_datum, dependent: :destroy
-  has_many :tango_config, dependent: :destroy
-  has_many :favorite, dependent: :destroy
-  has_many :favorite_wordnotes, through: :favorite, source: :wordnote
+  has_many :tango_data, dependent: :destroy
+  has_many :tango_configs, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+  has_many :favorite_wordnotes, through: :favorites, source: :wordnote
   mount_uploader :profile_image, ProfileImageUploader
   validate :profile_image_size
 
@@ -37,16 +37,9 @@ class User < ApplicationRecord
   validates :name, presence: true, length: { in: 1..24 }
   validates :email, presence: true, "valid_email_2/email": true,
                     uniqueness: true, length: { in: 1..48 }
+  private 
 
-  def get_tango_config(wordnote_id: val)
-    tango_config.to_a.find { |conf| conf.wordnote_id == wordnote_id }
-  end
-
-  def get_favorite(wordnote_id: val)
-    favorite.to_a.find { |conf| conf.wordnote_id == wordnote_id }
-  end
-
-  private def profile_image_size
-    errors.add(:profile_image, 'should be less than 1MB') if profile_image.size > 1.megabytes
-  end
+    def profile_image_size
+      errors.add(:profile_image, 'should be less than 1MB') if profile_image.size > 1.megabytes
+    end
 end

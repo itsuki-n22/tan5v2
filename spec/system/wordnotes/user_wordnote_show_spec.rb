@@ -11,7 +11,6 @@ describe 'Wordnote', type: :system, js: true do
 
     example '他人の非公開設定の単語帳にアクセスできないこと' do
       other_wn.update(is_open: false)
-      p other_wn
       visit user_wordnote_path(user_id: other_user, id: other_wn)
       expect(page).not_to have_content(tango.question)
     end

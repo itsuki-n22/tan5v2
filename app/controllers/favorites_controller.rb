@@ -1,7 +1,7 @@
 class FavoritesController < Base
 
   def change
-    @favorite = @current_user.favorite.find_by(wordnote_id: favorite_params[:wordnote_id])
+    @favorite = @current_user.favorites.find_by(wordnote_id: favorite_params[:wordnote_id])
     @wordnote_id = favorite_params[:wordnote_id]
     if @favorite
       @favorite.destroy
@@ -9,7 +9,7 @@ class FavoritesController < Base
         render action: 'destroy'
       end
     else
-      @current_user.favorite.build(wordnote_id: favorite_params[:wordnote_id]).save
+      @current_user.favorites.build(wordnote_id: favorite_params[:wordnote_id]).save
     end
   end
 

@@ -51,8 +51,8 @@ describe 'User', type: :system, js: true do
       let!(:other_user) { create(:user) }
       let!(:other_wn1) { create(:wordnote, user: other_user) }
       let(:other_wn2) { create(:wordnote, user: other_user) }
-      let(:favorite_my_wn1) { user.favorite.create(wordnote_id: my_wn1.id) }
-      let(:favorite_other_wn1) { user.favorite.create(wordnote_id: other_wn1.id) }
+      let(:favorite_my_wn1) { user.favorites.create(wordnote_id: my_wn1.id) }
+      let(:favorite_other_wn1) { user.favorites.create(wordnote_id: other_wn1.id) }
       let(:tango_of_my_wn1) { create(:tango, wordnote_id: my_wn1.id) }
 
       before { login_as(user) }
@@ -180,7 +180,7 @@ describe 'User', type: :system, js: true do
       end
     end
 
-    context '他人のユーザーページ' do
+    context '他人のユーザーページ', check: true do
       let!(:user) { create(:user) }
       let!(:other_user) { create(:user) }
       let!(:other_wn1) { create(:wordnote, user: other_user) }
@@ -189,9 +189,9 @@ describe 'User', type: :system, js: true do
       let!(:my_wn) { create(:wordnote, user: user) }
 
       before do
-        other_user.favorite.create(wordnote_id: other_wn1.id)
-        user.favorite.create(wordnote_id: other_wn1.id)
-        other_user.favorite.create(wordnote_id: my_wn.id)
+        other_user.favorites.create(wordnote_id: other_wn1.id)
+        user.favorites.create(wordnote_id: other_wn1.id)
+        other_user.favorites.create(wordnote_id: my_wn.id)
         login_as(user)
         visit user_path other_user
       end

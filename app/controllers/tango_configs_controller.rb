@@ -1,8 +1,8 @@
 class TangoConfigsController < Base
 
   def change
-    unless @tango_config = @current_user.tango_config.find_by(wordnote_id: tango_config_params[:wordnote_id])
-      @tango_config = @current_user.tango_config.build(wordnote_id: tango_config_params[:wordnote_id])
+    unless @tango_config = @current_user.tango_configs.find_by(wordnote_id: tango_config_params[:wordnote_id])
+      @tango_config = @current_user.tango_configs.build(wordnote_id: tango_config_params[:wordnote_id])
     end
     @tango_config.attributes = tango_config_params
     @tango_config.save
