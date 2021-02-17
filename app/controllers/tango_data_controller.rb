@@ -2,7 +2,7 @@ class TangoDataController < Base
 
   def change
     unless tango_datum = @current_user.tango_data.find_by(tango_id: data_params[:id])
-      tango_datum = @current_user.tango_data.build(tango_id: data_params[:id], wordnote_id: data_params[:wordnote_id], wrong_num: 0, trial_num: 0, star: 0)
+      tango_datum = @current_user.tango_data.build(tango_id: data_params[:id], wrong_num: 0, trial_num: 0, star: 0)
     end
     wrong_num = tango_datum.wrong_num
     trial_num = tango_datum.trial_num
@@ -36,6 +36,6 @@ class TangoDataController < Base
   private
 
   def data_params
-    params.permit(:id, :wordnote_id, :trial_num, :wrong_num, :star)
+    params.permit(:id, :trial_num, :wrong_num, :star)
   end
 end
