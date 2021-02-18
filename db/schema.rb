@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_17_222408) do
+ActiveRecord::Schema.define(version: 2021_02_17_232429) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,10 +28,10 @@ ActiveRecord::Schema.define(version: 2021_02_17_222408) do
   create_table "tango_configs", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "wordnote_id", null: false
-    t.string "sort", default: "asc"
+    t.integer "sort", default: 0
     t.integer "clicked_num", default: 0
     t.boolean "continue", default: false
-    t.string "filter", default: "none"
+    t.integer "filter", default: 0
     t.integer "font_size"
     t.integer "timer", default: 0
     t.datetime "created_at", precision: 6, null: false
