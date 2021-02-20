@@ -3,9 +3,9 @@
 # Table name: tango_data
 #
 #  id         :bigint           not null, primary key
-#  star       :integer
-#  trial_num  :integer
-#  wrong_num  :integer
+#  star       :integer          default(0)
+#  trial_num  :integer          default(0)
+#  wrong_num  :integer          default(0)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  tango_id   :bigint           not null

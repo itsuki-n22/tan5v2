@@ -2,23 +2,13 @@ class TangoDataController < Base
 
   def change
     unless tango_datum = @current_user.tango_data.find_by(tango_id: data_params[:id])
-      tango_datum = @current_user.tango_data.build(tango_id: data_params[:id], wrong_num: 0, trial_num: 0, star: 0)
+      tango_datum = @current_user.tango_data.build(tango_id: data_params[:id])
     end
-    wrong_num = tango_datum.wrong_num
-    trial_num = tango_datum.trial_num
-    star = tango_datum.star
 
-    wrong_num += 1 if data_params[:wrong_num]
-    trial_num += 1 if data_params[:trial_num]
-    star = data_params[:star].to_i if data_params[:star]
-    change_data = { wrong_num: wrong_num, trial_num: trial_num, star: star }
-
-    if tango_datum.id.nil?
-      tango_datum.attributes = change_data
-      tango_datum.save
-    else
-      tango_datum.update_columns(change_data)
-    end
+    tango_datum.wrong_num += 1 if data_params[:wrong_num]
+    tango_datum.trial_num += 1 if data_params[:trial_num]
+    tango_datum.star = data_params[:star].to_i if data_params[:star]
+    tango_datum.save
   end
 
   def get_tango_data

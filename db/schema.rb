@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_20_153841) do
+ActiveRecord::Schema.define(version: 2021_02_20_155458) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,9 +44,9 @@ ActiveRecord::Schema.define(version: 2021_02_20_153841) do
   create_table "tango_data", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "tango_id", null: false
-    t.integer "trial_num"
-    t.integer "wrong_num"
-    t.integer "star"
+    t.integer "trial_num", default: 0
+    t.integer "wrong_num", default: 0
+    t.integer "star", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["tango_id"], name: "index_tango_data_on_tango_id"
