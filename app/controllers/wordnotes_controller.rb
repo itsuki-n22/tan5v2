@@ -5,7 +5,7 @@ class WordnotesController < Base
     @user = User.find(params[:user_id])
     @wordnote = @user.wordnotes.find(params[:id])
     unless @tango_config = @current_user.tango_configs.find_by(wordnote_id: params[:id])
-      @tango_config = @current_user.tango_configs.build(wordnote_id: params[:id], font_size: 32, filter: 0)
+      @tango_config = @current_user.tango_configs.build(wordnote_id: params[:id])
     end
 
     @tango_config.clicked_num += 1

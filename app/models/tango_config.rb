@@ -5,10 +5,10 @@
 #  id            :bigint           not null, primary key
 #  clicked_num   :integer          default(0)
 #  continue      :boolean          default(FALSE)
-#  filter        :string           default("none")
-#  font_size     :integer
+#  filter        :integer          default(0)
+#  font_size     :integer          default(32)
 #  last_question :integer
-#  sort          :string           default("asc")
+#  sort          :integer          default("asc")
 #  timer         :integer          default(0)
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
@@ -26,6 +26,7 @@
 #  fk_rails_...  (wordnote_id => wordnotes.id)
 #
 class TangoConfig < ApplicationRecord
+  enum sort: [:asc, :desc, :random]
   belongs_to :user
   belongs_to :wordnote
   validates :user, presence: true
@@ -45,7 +46,7 @@ class TangoConfig < ApplicationRecord
   def tangos_by_config
     sorted_tangos.reject do |tango|
       star = tango.tango_datum ? tango.tango_datum.star : 0
-      star < filter.to_i
+      star < filter
     end
   end
 end
