@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_17_232429) do
+ActiveRecord::Schema.define(version: 2021_02_20_153841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 2021_02_17_232429) do
     t.integer "clicked_num", default: 0
     t.boolean "continue", default: false
     t.integer "filter", default: 0
-    t.integer "font_size"
+    t.integer "font_size", default: 32
     t.integer "timer", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

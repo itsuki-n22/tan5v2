@@ -6,9 +6,9 @@
 #  clicked_num   :integer          default(0)
 #  continue      :boolean          default(FALSE)
 #  filter        :integer          default(0)
-#  font_size     :integer
+#  font_size     :integer          default(32)
 #  last_question :integer
-#  sort          :integer          default(0)
+#  sort          :integer          default("asc")
 #  timer         :integer          default(0)
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
