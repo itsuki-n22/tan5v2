@@ -1,5 +1,7 @@
 
 
+![logo](https://github.com/itsuki-n22/tan5v2/blob/master/public/tan5-logo.png)  
+
 <h1>tan5</h1>
 
 ##  URL
@@ -13,7 +15,8 @@
 CSVでのダウンロード、アップロードも可能です。  
 
 ## 使い方(docker用）
- 
+
+<img src="https://www.docker.com/sites/default/files/d8/styles/role_icon/public/2019-07/horizontal-logo-monochromatic-white.png" width="100px"><br>
 Docker,docker-composeがインストールされていることが必須です。  
 クローンした後に、 setup.sh を起動することですぐに利用できる状態になります。  
 その後、`docker-compose up` を実行後、 localhost:3000 にアクセスしてください。  
