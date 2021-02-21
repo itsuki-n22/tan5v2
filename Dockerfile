@@ -15,7 +15,6 @@ RUN apt-get update && apt-get install -y unzip && \
     sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list' && \
     apt-get update && apt-get install -y google-chrome-stable
 
-
 # yarn
 RUN apt-get update && apt-get install -y curl apt-transport-https wget && \
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
@@ -24,20 +23,16 @@ apt-get update && apt-get install -y yarn
 
 # Node.js
 RUN curl -sL https://deb.nodesource.com/setup_7.x | bash - && \
-apt-get install nodejs
+apt-get install -y nodejs
 
 
 WORKDIR /tan5
 ADD Gemfile /tan5/Gemfile
 ADD Gemfile.lock /tan5/Gemfile.lock
-
 RUN gem install bundler
 ADD . /tan5
-RUN bundle install
-RUN yarn install --check-files 
+RUN bundle config set path 'vendor/bundle'
 
 # for nginx
 RUN mkdir -p tmp/sockets
 RUN mkdir -p tmp/pids
-
-CMD bundle exec puma

@@ -16,6 +16,7 @@ services:
     build: .
     environment:
       RAILS_ENV: production
+    command: bundle exec puma
     tty: true
     stdin_open: true
     volumes: 
