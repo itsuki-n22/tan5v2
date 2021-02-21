@@ -17,7 +17,7 @@
 /storage/*
 !/storage/.keep
 
-#/public/assets #precompileしたままcontainerにしたい場合はここをエスケープ
+/public/assets
 /public/uploads
 /public/tangos
 .byebug_history
@@ -25,9 +25,9 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
-#/public/packs #precompileしたままcontainerにしたい場合はここをエスケープ
-#/public/packs-test 
-#/node_modules #precompileしたままcontainerにしたい場合はここをエスケープ
+/public/packs
+/public/packs-test 
+/node_modules 
 
 /yarn-error.log
 yarn-debug.log*
