@@ -17,8 +17,7 @@ Rails.application.routes.draw do
     end
     resources :wordnotes, except: %i[index new edit show] do
       resources :tangos, only: %i[create update destroy] do
-        post 'change_tango_data', to: 'tango_data#change', as: 'change_data_of', on: :member
-        get 'get_tango_data', to: 'tango_data#get_tango_data', as: 'get_data_of', on: :member
+        resource :tango_data, only: %i[show update], shallow: false
       end
       delete 'delete_checked_tangos', to: 'tangos#delete_checked_tangos', as: 'delete_checked_tangos_on', on: :member
       post 'create_on_list', to: 'tangos#create_on_list', as: 'create_tangos_on_list_of', on: :member

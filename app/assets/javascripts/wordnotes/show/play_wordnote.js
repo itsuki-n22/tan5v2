@@ -362,7 +362,7 @@ jQuery(function($){
 
   function getTangoData(){
     $.ajax({
-      url: '/tangos/' + tangoArray[tangoNumber].tangoId + '/get_tango_data',
+      url: '/tangos/' + tangoArray[tangoNumber].tangoId + '/tango_data',
       type: "get",
       dataType: "script",
       beforeSend: function(xhr){
@@ -373,10 +373,10 @@ jQuery(function($){
 
   function changeTangoData(tangoDataParams){
     let wordnoteId = Number($('[id*="config-no-"]').attr("id").split("-").pop());
-    tangoDataParams.wordnote_id = wordnoteId;
+    //tangoDataParams.wordnote_id = wordnoteId;
     $.ajax({
-      url: '/tangos/' + tangoArray[tangoNumber].tangoId + '/change_tango_data',
-      type: "post",
+      url: '/tangos/' + tangoArray[tangoNumber].tangoId + '/tango_data',
+      type: "patch",
       data: tangoDataParams,
       dataType: "script",
       beforeSend: function(xhr){
