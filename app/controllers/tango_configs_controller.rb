@@ -1,9 +1,7 @@
 class TangoConfigsController < Base
 
-  def change
-    unless @tango_config = @current_user.tango_configs.find_by(wordnote_id: tango_config_params[:wordnote_id])
-      @tango_config = @current_user.tango_configs.build(wordnote_id: tango_config_params[:wordnote_id])
-    end
+  def update
+    @tango_config = @current_user.tango_configs.find(params[:id])
     @tango_config.attributes = tango_config_params
     @tango_config.save
   end
@@ -11,6 +9,6 @@ class TangoConfigsController < Base
   private
 
   def tango_config_params
-    params.require(:tango_config).permit(:wordnote_id, :sort, :clicked_num, :continue, :filter, :font_size, :timer, :last_question)
+    params.require(:tango_config).permit(:sort, :clicked_num, :continue, :filter, :font_size, :timer, :last_question)
   end
 end

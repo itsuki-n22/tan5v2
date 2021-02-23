@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resource :session, only: [:create, :destroy]
 
   post 'change_favorite', to: 'favorites#change'
-  post 'change_tango_config', to: 'tango_configs#change'
+  resources :tango_configs, only: %i[update]
 
   resources :users, shallow: true, except: %i[destroy] do
     get :search, on: :collection

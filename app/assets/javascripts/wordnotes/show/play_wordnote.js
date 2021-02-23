@@ -218,12 +218,11 @@ jQuery(function($){
     $(window).on('beforeunload', function() { 
       let lastQuestion = tangoArray[tangoNumber].tangoId;
       let params = {tango_config: {}};
-      let wordnoteId = Number($('[id*="config-no-"]').attr("id").split("-").pop());
-      params["tango_config"]["wordnote_id"] = wordnoteId;
+      let tangoConfigId = $('#tango_config_id').val();
       params["tango_config"]["last_question"] = lastQuestion;
        $.ajax({
-           url: '/change_tango_config',
-           type: "post",
+           url: '/tango_configs/' + tangoConfigId,
+           type: "patch",
            data: params,
            dataType: "text",
            beforeSend: function(xhr){
@@ -373,7 +372,6 @@ jQuery(function($){
 
   function changeTangoData(tangoDataParams){
     let wordnoteId = Number($('[id*="config-no-"]').attr("id").split("-").pop());
-    //tangoDataParams.wordnote_id = wordnoteId;
     $.ajax({
       url: '/tangos/' + tangoArray[tangoNumber].tangoId + '/tango_data',
       type: "patch",

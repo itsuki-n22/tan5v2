@@ -40,7 +40,7 @@ $(document).on('change','#edit-tango-config-form .config-item',function(){
     $('#character-size-preview').css('font-size', val + "px")
   };
   params["tango_config"][id] = val;
-  params["tango_config"]["wordnote_id"] = $('#tango_config_wordnote_id').val();
+  //params["tango_config"]["id"] = $('#tango_config_id').val();
   changeConfigData(params);
 });
 
@@ -56,9 +56,10 @@ $(document).on('click', '#tango-config-window .modal-close', function(){
 
 /// update config data by ajax
 function changeConfigData(tangoConfigParams){
+  tangoConfigId = $('#tango_config_id').val();
   $.ajax({
-      url: '/change_tango_config',
-      type: "post",
+      url: '/tango_configs/' + tangoConfigId ,
+      type: "patch",
       data: tangoConfigParams,
       dataType: "text",
       beforeSend: function(xhr){
