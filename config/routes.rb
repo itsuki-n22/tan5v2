@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
+
   root 'top#index'
 
-  get 'login' => 'sessions#new', as: :login
-  post 'session' => 'sessions#create', as: :session
-  delete 'session' => 'sessions#destroy'
+  get 'login', to: 'sessions#new', as: :login
+  resource :session, only: [:create, :destroy]
 
   post 'change_favorite', to: 'favorites#change'
   post 'change_tango_config', to: 'tango_configs#change'
