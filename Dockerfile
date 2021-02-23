@@ -32,6 +32,7 @@ ADD Gemfile.lock /tan5/Gemfile.lock
 RUN gem install bundler
 ADD . /tan5
 RUN bundle config set path 'vendor/bundle'
+RUN cat .bashrc-custom >> /root/.bashrc
 
 # for nginx
 RUN mkdir -p tmp/sockets

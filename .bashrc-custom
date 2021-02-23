@@ -1,0 +1,16 @@
+
+alias rails="bundle exec rails"
+alias rspec="bundle exec rspec"
+alias bashrc-custom-check="echo .bashrc-custom is active"
+
+export LS_OPTIONS='--color=auto'
+alias ls='ls $LS_OPTIONS'
+alias ll='ls $LS_OPTIONS -l'
+alias l='ls $LS_OPTIONS -lAF'
+alias grep='grep $LS_OPTIONS'
+alias fgrep='fgrep $LS_OPTIONS'
+alias egrep='egrep $LS_OPTIONS'
+
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
