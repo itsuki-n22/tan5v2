@@ -4,17 +4,17 @@ class WordnotesController < Base
   def show
     @wordnote = Wordnote.find(params[:id])
     @user = User.find(@wordnote.user_id)
-    unless @tango_config = @current_user.tango_configs.find_by(wordnote_id: params[:id])
-      @tango_config = @current_user.tango_configs.build(wordnote_id: params[:id])
+    unless tango_config = @current_user.tango_configs.find_by(wordnote_id: params[:id])
+      tango_config = @current_user.tango_configs.build(wordnote_id: params[:id])
     end
 
-    @tango_config.clicked_num += 1
-    @tango_config.save
+    tango_config.clicked_num += 1
+    tango_config.save
 
-    @tangos = @tango_config.tangos_by_config
-    if @tangos.size == 0 && @tango_config.filter.to_i > 0 # フィルターの設定で単語が表示されなくなる場合の対策
-      @tango_config.update_attribute(:filter, 0)
-      @tangos = @tango_config.sorted_tangos 
+    @tangos = tango_config.tangos_by_config
+    if @tangos.size == 0 && tango_config.filter.to_i > 0 # フィルターの設定で単語が表示されなくなる場合の対策
+      tango_config.update_attribute(:filter, 0)
+      @tangos = tango_config.sorted_tangos 
     end
 
     if @tangos.size == 0

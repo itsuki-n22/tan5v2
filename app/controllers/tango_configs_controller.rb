@@ -1,9 +1,9 @@
 class TangoConfigsController < Base
 
   def update
-    @tango_config = @current_user.tango_configs.find(params[:id])
-    @tango_config.attributes = tango_config_params
-    @tango_config.save
+    tango_config = current_user.tango_configs.find(params[:id])
+    tango_config.attributes = tango_config_params
+    tango_config.save
   end
 
   private
