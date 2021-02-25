@@ -74,7 +74,7 @@ describe 'Wordnote', type: :system, js: true do
         expect(page).not_to have_content(tangos[2].hint)
       end
 
-      example '一覧表示画面から単語の編集ができること' do
+      example '一覧表示画面から単語の編集ができること', check: true do
         find('#show-tangos').click
         within "#tango-no-#{tangos.first.id}" do
           find(".question").hover

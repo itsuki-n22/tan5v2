@@ -37,7 +37,7 @@
         <div class="btn btn-outline-info modal-close close-btn"><i class="fas fa-window-close"></i> 閉じる</div>
         <div id="wordnote-detail-show-btn" class="btn btn-outline-secondary"><i class="fas fa-cogs"></i> 詳細設定</div>
         <div id="wordnote-delete-btn" class="hidden">
-          <%= link_to(wordnote_url(user_id: 0, id: 0) ,id: 'delete-wordnote-btn', method: :delete , data: {confirm: "本当に削除しますか？"}, remote: false) do %>
+          <%= link_to(wordnote_url(id: 0) ,id: 'delete-wordnote-btn', method: :delete , data: {confirm: "本当に削除しますか？"}, remote: false) do %>
             <%= button_tag '<i class="fas fa-trash"></i> 単語帳を削除'.html_safe, type: "submit", class: "btn btn-outline-danger" %>
           <% end %>
         </div>

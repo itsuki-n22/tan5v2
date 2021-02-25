@@ -1,4 +1,4 @@
-<%= form_with model: tango, method: "post", url: wordnote_tangos_path(user_id: current_user.id, wordnote_id: 0) do |f| %>
+<%= form_with model: tango, method: "post", url: wordnote_tangos_path(wordnote_id: 0) do |f| %>
   <% if wordnotes.size > 0 %>
     <h4 id="create-tango-form-title">単語を登録</h4>
     <div id="select-wordnote" class="form-group">
