@@ -16,8 +16,6 @@ Rails.application.routes.draw do
         post :import, on: :collection
         resource :tango_data, only: %i[show update], shallow: false
       end
-      delete 'delete_checked_tangos', to: 'tangos#delete_checked_tangos', as: 'delete_checked_tangos_on', on: :member
-      post 'create_on_list', to: 'tangos#create_on_list', as: 'create_tangos_on_list_of', on: :member
     end
   end
 end

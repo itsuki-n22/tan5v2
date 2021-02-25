@@ -51,7 +51,7 @@
     <% end %>
   </div>
   <div id="questions" class="hidden">
-    <%= form_with model: @tangos, id: "delete-btn", method: :delete,url: delete_checked_tangos_on_wordnote_path(user_id: @current_user, wordnote_id: @wordnote) do |f| %>
+    <%= form_with model: @tangos, id: "delete-btn", method: :delete,url: tango_path() do |f| %>
       <%= button_tag '<i class="fas fa-trash"></i> 削除'.html_safe, type: "submit", class: "delete-btn btn btn-outline-danger" %>
     <% end %>
     <table class="table">

@@ -342,7 +342,6 @@ jQuery(function($){
         let value = $(this).attr("id").split("-").pop();
         let id = $(this).attr("id").split("-").pop();
         tmp += '<input type="hidden" name="tangos[]" value=' + value + '>';
-        console.log(id);
       });
       $("[name*='tangos']").remove();
       tmp = jQuery(jQuery.parseHTML(tmp));

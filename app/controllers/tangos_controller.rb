@@ -19,17 +19,6 @@ class TangosController < Base
     end
   end
 
-  def create_on_list
-    @user = User.find(params[:user_id])
-    @wordnote = @user.wordnotes.find(params[:wordnote_id])
-    @tango = @wordnote.tangos.new(tango_params)
-    if tango_params[:question] == '' || tango_params[:answer] == ''
-      render action: 'notice_form_error'
-    else
-      @tango.save
-    end
-  end
-
   def import
     return @no_file_error = true if params[:csv_file].nil?
     return @file_size_error = true if params[:csv_file].size > 500000
@@ -38,13 +27,26 @@ class TangosController < Base
   end
 
   def create
-    wordnote = @current_user.wordnotes.find(tango_params[:wordnote_id])
-    wordnote.tangos.new(tango_params).save
-    @wordnotes = @current_user.wordnotes.all
+    case params[:commit]
+    when '単語を登録'
+      wordnote = @current_user.wordnotes.find(tango_params[:wordnote_id])
+      wordnote.tangos.new(tango_params).save
+      @wordnotes = @current_user.wordnotes.all
+    when '登録'
+      @wordnote = @current_user.wordnotes.find(params[:wordnote_id])
+      @tango = @wordnote.tangos.new(tango_params)
+      if tango_params[:question] == '' || tango_params[:answer] == ''
+        render action: 'notice_form_error'
+      else
+        @tango.save
+        render action: 'create_on_wordnote_show'
+      end
+    end
   end
 
-  def delete_checked_tangos
-    @delete_tangos = @current_user.wordnotes.find(params[:wordnote_id]).tangos.find(params[:tangos])
+  def destroy
+    wordnote_id = Tango.find(params[:tangos].first).wordnote_id
+    @delete_tangos = @current_user.wordnotes.find(wordnote_id).tangos.find(params[:tangos])
     @tango_json = @delete_tangos.to_json.html_safe
     @delete_tangos.each { |tango| tango.destroy }
   end
