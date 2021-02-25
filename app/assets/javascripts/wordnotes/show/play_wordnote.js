@@ -128,7 +128,7 @@ jQuery(function($){
   }
   
   function showAllTangos(){
-    if( $('#current_user_id').val() == location.pathname.split("/")[2] ){ 
+    if( $('#current_user_id').val() == $('#user_id').val() ){ 
       showAllTangosHtml.click(function(){
         if(tangosHtml.attr('class').match(/hidden/)){
           tangosHtml.removeClass('hidden');

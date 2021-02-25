@@ -126,7 +126,7 @@ describe 'User', type: :system, js: true do
         add_condition(tango_of_my_wn1)
         within "#created-wordnotes #wordnote-no-#{my_wn1.id}" do
           click_link my_wn1.name
-          expect(current_path).to eq user_wordnote_path(user_id: my_wn1.user_id, id: my_wn1.id)
+          expect(current_path).to eq wordnote_path(id: my_wn1.id)
         end
       end
      
@@ -165,7 +165,7 @@ describe 'User', type: :system, js: true do
             sleep 1
             within "#created-wordnotes #wordnote-no-#{my_wn1.id}" do
               click_link my_wn1.name
-              expect(current_path).to eq user_wordnote_path(user_id: my_wn1.user_id, id: my_wn1.id)
+              expect(current_path).to eq wordnote_path(id: my_wn1.id)
             end
           end
 
@@ -180,7 +180,7 @@ describe 'User', type: :system, js: true do
       end
     end
 
-    context '他人のユーザーページ', check: true do
+    context '他人のユーザーページ' do
       let!(:user) { create(:user) }
       let!(:other_user) { create(:user) }
       let!(:other_wn1) { create(:wordnote, user: other_user) }
@@ -262,7 +262,7 @@ describe 'User', type: :system, js: true do
         FactoryBot.create(:tango, wordnote: other_wn1)
         within "#created-wordnotes #wordnote-no-#{other_wn1.id}" do
           click_link other_wn1.name
-          expect(current_path).to eq user_wordnote_path(user_id: other_wn1.user_id, id: other_wn1.id)
+          expect(current_path).to eq wordnote_path(id: other_wn1.id)
         end
       end
     end

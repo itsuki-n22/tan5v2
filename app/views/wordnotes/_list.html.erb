@@ -8,7 +8,7 @@
           <div class="card" style="height:100%;">
             <div class="card-header <%= 'not-open' if wordnote.is_open == false %>"> 
               <div class="d-flex">
-                <div class="align-self-center" style="max-width: 70%; font-size: large;" ><%= link_to wordnote.name, user_wordnote_url(user_id: user.id, id: wordnote.id) %></div>
+                <div class="align-self-center" style="max-width: 70%; font-size: large;" ><%= link_to wordnote.name, wordnote_url( id: wordnote.id) %></div>
                 <div class="ml-auto"><%= render partial: "favorites/fav_btn", locals: {wordnote: wordnote, user: @user, current_user: @current_user} %></div>
                 <% if @current_user.id == wordnote.user_id %>
                   <div>

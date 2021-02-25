@@ -11,12 +11,9 @@ Rails.application.routes.draw do
   resources :users, shallow: true, except: %i[destroy] do
     get :search, on: :collection
     get :suspend, on: :member
-    resources :wordnotes, only: [:show], shallow: false do
-      post 'download_csv', to: 'wordnotes#download_csv'
-      post 'upload_csv', to: 'wordnotes#upload_csv'
-    end
-    resources :wordnotes, except: %i[index new edit show] do
-      resources :tangos, only: %i[create update destroy] do
+    resources :wordnotes, except: %i[index new edit] do
+      resources :tangos, only: %i[index create update destroy] do
+        post :import, on: :collection
         resource :tango_data, only: %i[show update], shallow: false
       end
       delete 'delete_checked_tangos', to: 'tangos#delete_checked_tangos', as: 'delete_checked_tangos_on', on: :member

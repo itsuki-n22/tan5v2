@@ -22,9 +22,9 @@ $(document).on('click','[id*="edit-no-"]',function(){
   });
 
   ///csv url
-  dl_url = '/users/' + $('#current_user_id').val() +'/wordnotes/' + $('#edit_wordnote_id').val() +  '/download_csv'
+  dl_url = '/wordnotes/' + $('#edit_wordnote_id').val() +  '/tangos.csv'
   $('.download-csv').attr('href',dl_url)
-  ul_url = '/users/' + $('#current_user_id').val() +'/wordnotes/' + $('#edit_wordnote_id').val() +  '/upload_csv'
+  ul_url = '/wordnotes/' + $('#edit_wordnote_id').val() +  '/tangos/import'
   delete_url = '/wordnotes/' + $('#edit_wordnote_id').val() +'?user_id=' + $('#current_user_id').val()
   $('.upload-csv').attr('href',ul_url)
   $('.upload-csv').attr('action',ul_url)

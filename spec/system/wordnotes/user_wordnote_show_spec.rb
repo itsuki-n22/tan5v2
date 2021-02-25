@@ -11,12 +11,12 @@ describe 'Wordnote', type: :system, js: true do
 
     example '他人の非公開設定の単語帳にアクセスできないこと' do
       other_wn.update(is_open: false)
-      visit user_wordnote_path(user_id: other_user, id: other_wn)
+      visit wordnote_path(user_id: other_user, id: other_wn)
       expect(page).not_to have_content(tango.question)
     end
    
     example '他人の単語帳では単語一覧が表示できないこと' do
-      visit user_wordnote_path(user_id: other_user, id: other_wn)
+      visit wordnote_path(user_id: other_user, id: other_wn)
       expect( find('#show-tangos') ).not_to have_content('問題を全て見る')
     end
   end
@@ -29,7 +29,7 @@ describe 'Wordnote', type: :system, js: true do
 
     before do 
       login_as(user)
-      visit user_wordnote_path(user_id: user, id: my_wn)
+      visit wordnote_path(user_id: user, id: my_wn)
     end
 
     example '自分のの非公開設定の単語帳にアクセスできること' do

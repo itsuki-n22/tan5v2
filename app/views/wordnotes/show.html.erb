@@ -46,6 +46,7 @@
   </div>
   <div id="show-tangos" class="shadow-sm"> 
     <% if @current_user == @user %>
+      <%= hidden_field_tag :user_id, @user.id %>
       <i class="fa fa-book-open"></i> 問題を全て見る
     <% end %>
   </div>

@@ -20,13 +20,13 @@
       <div class="form-group hidden" id="csv-control-panel">
         <div>
           <label class="bmd-label-floating d-block">単語をCSVデータでダウンロード</label>
-          <%= link_to "<i class='fas fa-download'></i> CSV ダウンロード".html_safe, user_wordnote_download_csv_path(user_id:0, wordnote_id:0), class: 'download-csv btn btn-outline-primary', method: "post" %>
+          <%= link_to "<i class='fas fa-download'></i> CSV ダウンロード".html_safe, wordnote_tangos_path(wordnote_id:0, format: 'csv'), class: 'download-csv btn btn-outline-primary', method: "get" %>
         </div>
 
         <div class="mt-3">
           <label class="bmd-label-floating">単語をCSVデータで一括登録</label><i class="fas fa-info-circle" id="csv-upload-explain-trigger"></i>
           <div id="csv-upload-explain" class="hidden">アップロードについて：<br>ファイルサイズは500kBまで<br>文字コードはUTF-8<br>ファイル形式はCSV(.csvファイル)<br>フォーマットは上の「CSV ダウンロード」からダウンロードして利用してください。 </div>
-          <%= form_tag user_wordnote_upload_csv_path(user_id:0, wordnote_id:0), class:'upload-csv', method: "post", multipart: true, remote: true do %>
+          <%= form_tag import_wordnote_tangos_path(wordnote_id:0), class:'upload-csv', method: "post", multipart: true, remote: true do %>
             <%= button_tag '<i class="fas fa-upload"></i> CSV アップロード'.html_safe, type: "submit", class: "btn btn-outline-primary" %>
             <%= file_field_tag :csv_file, accept: '.csv' %>
           <% end %>

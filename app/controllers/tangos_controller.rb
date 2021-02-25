@@ -1,11 +1,11 @@
 class TangosController < Base
 
   def index
-    @user = User.find(params[:user_id])
-    @tangos = @user.tangos.where(name: params[:key].first).where(subject: params[:key].last).order(created_at: :asc)
-    if @tangos.size == 0
-      flash[:danger] = '当該の単語帳はありません'
-      redirect_to user_path(@current_user)
+    respond_to do |format|
+      format.csv do 
+        wordnote = Wordnote.find(params[:wordnote_id])
+        send_data(wordnote.tangos_csv, filename: "#{wordnote.name + '-' + wordnote.subject}.csv")
+      end
     end
   end
 
@@ -30,11 +30,17 @@ class TangosController < Base
     end
   end
 
+  def import
+    return @no_file_error = true if params[:csv_file].nil?
+    return @file_size_error = true if params[:csv_file].size > 500000
+    wordnote = @current_user.wordnotes.find(params[:wordnote_id])
+    wordnote.import_tangos(params[:csv_file])
+  end
+
   def create
-    @user = User.find(params[:user_id])
-    @tango = @user.wordnotes.find(params[:wordnote_id]).tangos.new(tango_params)
-    @wordnotes = @user.wordnotes.all
-    @tango.save
+    wordnote = @current_user.wordnotes.find(tango_params[:wordnote_id])
+    wordnote.tangos.new(tango_params).save
+    @wordnotes = @current_user.wordnotes.all
   end
 
   def delete_checked_tangos
@@ -45,7 +51,8 @@ class TangosController < Base
 
   private
 
-  def tango_params
-    params.require(:tango).permit(:wordnote_id, :question, :answer, :hint)
-  end
+    def tango_params
+      params.require(:tango).permit(:wordnote_id, :question, :answer, :hint)
+    end
+
 end
