@@ -37,6 +37,19 @@ class User < ApplicationRecord
   validates :name, presence: true, length: { in: 1..24 }
   validates :email, presence: true, "valid_email_2/email": true,
                     uniqueness: true, length: { in: 1..48 }
+
+  def unfavorite(wordnote)
+    favorite_wordnotes.destroy(wordnote)
+  end
+ 
+  def favorite(wordnote)
+    favorite_wordnotes << wordnote
+  end
+
+  def favorited?(wordnote)
+    favorite_wordnotes.include?(wordnote)
+  end
+
   private 
 
     def profile_image_size

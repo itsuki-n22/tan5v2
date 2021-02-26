@@ -1,21 +1,14 @@
 class FavoritesController < Base
+  before_action :require_login, only: %i[create destroy]
 
-  def change
-    @favorite = @current_user.favorites.find_by(wordnote_id: favorite_params[:wordnote_id])
-    @wordnote_id = favorite_params[:wordnote_id]
-    if @favorite
-      @favorite.destroy
-      if @current_user.id.to_s == favorite_params[:user_id] || @current_user.id == @favorite.user_id
-        render action: 'destroy'
-      end
-    else
-      @current_user.favorites.build(wordnote_id: favorite_params[:wordnote_id]).save
-    end
+  def create
+    @favorite = current_user.favorites.build(wordnote_id: params[:wordnote_id])
+    @favorite.save
   end
 
-  private
-
-  def favorite_params
-    params.require(:favorite).permit(:user_id, :wordnote_id)
+  def destroy
+    @favorite = current_user.favorites.find(params[:id])
+    @favorite.destroy
   end
+
 end

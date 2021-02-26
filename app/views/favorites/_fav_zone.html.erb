@@ -1,0 +1,7 @@
+<div class="ml-auto fav_zone-<%= wordnote.id %>">
+  <% if @current_user.favorited?(wordnote) %>
+  <%= render partial: "favorites/unfav_btn", locals: { wordnote: wordnote, current_user: @current_user } %>
+  <% else %>
+  <%= render partial: "favorites/fav_btn", locals: { wordnote: wordnote, current_user: @current_user } %>
+  <% end %>
+</div>

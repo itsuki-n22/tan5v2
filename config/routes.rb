@@ -4,9 +4,8 @@ Rails.application.routes.draw do
 
   get 'login', to: 'sessions#new', as: :login
   resource :session, only: [:create, :destroy]
-
-  post 'change_favorite', to: 'favorites#change'
   resources :tango_configs, only: %i[update]
+  resources :favorites, only: %i[create destroy]
 
   resources :users, shallow: true, except: %i[destroy] do
     get :search, on: :collection

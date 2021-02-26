@@ -1,8 +1,3 @@
-<%= form_with model: Favorite ,url: change_favorite_path, id: 'favorite-no-' + wordnote.id.to_s, class:"fav-btn" do |f| %>
-  <%= f.hidden_field :user_id, value: wordnote.user_id %>
-  <%= f.hidden_field :wordnote_id, value: wordnote.id %>
-  <%  wordnote.favorites.where(user_id: @current_user.id).first ? btn_class = 'favorited btn' : btn_class = 'btn' %>
-  <%= button_tag type: "submit", class: btn_class do %>
-    <i class="fas fa-heart"></i>
-  <% end %>
+<%= link_to favorites_path(wordnote_id: wordnote.id), class: "fav-btn", method: :post, remote: true do %>
+  <i class="fas fa-heart"></i>
 <% end %>

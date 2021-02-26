@@ -1,0 +1,3 @@
+<%= link_to favorite_path(current_user.favorites.find_by(wordnote_id: wordnote.id)), method: :delete, class: "fav-btn favorited", remote: true do %>
+  <i class="fas fa-heart"></i>
+<% end %>

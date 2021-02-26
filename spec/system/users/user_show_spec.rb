@@ -83,14 +83,14 @@ describe 'User', type: :system, js: true do
         expect(page).to have_css "#edit-no-#{my_wn2.id}"
         expect(page).to have_css "#edit-no-#{my_wn1.id}"
         #お気に入りの削除ボタン"
-        expect(page).to have_css "#favorite-delete-no-#{other_wn1.id}"
-        expect(page).to have_css "#favorite-delete-no-#{my_wn1.id}"
+        expect(page).to have_css ".fav_zone-#{other_wn1.id}"
+        expect(page).to have_css ".fav_zone-#{my_wn1.id}"
       end
 
       example '単語帳をお気に入りに追加できること' do
         within "#wordnote-no-#{my_wn1.id}" do
           expect {
-            find(:id, "favorite-no-#{my_wn1.id}").click
+            find(:xpath, "//*[contains(@class, 'fav_zone-#{my_wn1.id}')]").click
             expect(page).to have_css '.favorited'
           }.to change(Favorite.all, :count).by(1)
         end
@@ -100,8 +100,8 @@ describe 'User', type: :system, js: true do
         add_condition(favorite_my_wn1)
         within "#created-wordnotes #wordnote-no-#{my_wn1.id}" do
           expect {
-            find(:id, "favorite-no-#{my_wn1.id}").click
-            sleep 0.5
+            find(:xpath, "//*[@id='created-wordnotes']//*[contains(@class, 'fav_zone-#{my_wn1.id}')]").click
+            sleep 1
             expect(page).not_to have_css '.favorited'
           }.to change(Favorite.all, :count).by(-1)
         end
@@ -229,7 +229,7 @@ describe 'User', type: :system, js: true do
       example '単語帳をお気に入りに追加できること' do
         within "#wordnote-no-#{other_wn2.id}" do
           expect {
-            find(:id, "favorite-no-#{other_wn2.id}").click
+            find(:xpath, "//*[contains(@class, 'fav_zone-#{other_wn2.id}')]").click
             expect(page).to have_css '.favorited'
           }.to change(Favorite.all, :count).by(1)
         end
@@ -238,7 +238,7 @@ describe 'User', type: :system, js: true do
       example '単語帳をお気に入りから削除できること' do
         within "#created-wordnotes #wordnote-no-#{other_wn1.id}" do
           expect {
-            find(:id, "favorite-no-#{other_wn1.id}").click
+            find(:xpath, "//*[contains(@class, 'fav_zone-#{other_wn1.id}')]").click
             expect(page).not_to have_css '.favorited'
           }.to change(Favorite.all, :count).by(-1)
         end
