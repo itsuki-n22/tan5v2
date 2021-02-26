@@ -1,5 +1,5 @@
 class UsersController < Base
-  before_action :logged_in?, except: %i[new create]
+  before_action :require_login, except: %i[new create]
   before_action :logged_in_user_can_not_access_sign_up, only: %i[new create]
   before_action :correct_user, only: %i[edit update]
 
@@ -82,10 +82,6 @@ class UsersController < Base
       end
     end
 
-    def logged_in?
-      redirect_to :root if @current_user.nil?
-    end
-   
     def logged_in_user_can_not_access_sign_up
       redirect_to :root if @current_user
     end
