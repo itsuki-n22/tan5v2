@@ -37,7 +37,7 @@
   </div>
   <% if !current_page?(new_user_path) %>
     <div class="ml-auto">
-    <%= link_to :session, method: :delete, class: "logout-btn btn btn-outline-info" do %>
+    <%= link_to logout_path, method: :delete, class: "logout-btn btn btn-outline-info" do %>
       <i class="fas fa-sign-out-alt"></i> ログアウト
     <% end %>
     </div>

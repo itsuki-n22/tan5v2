@@ -2,8 +2,10 @@ Rails.application.routes.draw do
 
   root 'top#index'
 
-  get 'login', to: 'sessions#new', as: :login
-  resource :session, only: [:create, :destroy]
+  get 'login', to: 'sessions#new'
+  post 'login', to: 'sessions#create'
+  delete 'logout', to: 'sessions#destroy'
+
   resources :tango_configs, only: %i[update]
   resources :favorites, only: %i[create destroy]
   resources :tango_data, only: %i[show update]

@@ -22,7 +22,7 @@ RSpec.describe 'session', type: :system, js: true do
         fill_in 'パスワード', with: password
         click_button 'ログイン'
         expect(page).to have_content 'パスワードかメールアドレスのいずれかが間違っています。'
-        expect(current_path).to eq session_path
+        expect(current_path).to eq login_path
       end
     end
   end
