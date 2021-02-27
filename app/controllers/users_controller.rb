@@ -8,7 +8,7 @@ class UsersController < Base
   end
 
   def index
-    @users = User.includes(:wordnotes).page(params[:page]).order(email: :asc)
+    @users = User.includes(:wordnotes).page(params[:page])
   end
 
   def show
@@ -26,7 +26,7 @@ class UsersController < Base
       flash[:success] = 'ユーザーを登録しました'
       redirect_to :root
     else
-      flash.now[:danger] = @user.errors.messages.to_a.join('')
+      flash.now[:danger] = @user.joined_error_message
       render action: 'new'
     end
   end
@@ -38,13 +38,13 @@ class UsersController < Base
       flash[:success] = '登録情報を更新しました'
       redirect_to user_path(@user)
     else
-      flash.now[:danger] = @user.errors.messages.to_a.join('')
+      flash.now[:danger] = @user.joined_error_message
       render action: 'edit'
     end
   end
 
   def edit
-    @user = @current_user
+    @user = current_user
   end
 
   def destroy
@@ -55,14 +55,7 @@ class UsersController < Base
   end
 
   def search
-    search_word = params[:search_word]
-    @users = nil
-    if search_word.strip == ''
-      @users = User.all.eager_load(:wordnotes)
-    else
-      @users = User.left_outer_joins(:wordnotes).where('wordnotes.subject like ?', "%#{search_word}%").or(User.left_outer_joins(:wordnotes).where('users.name like ?', "%#{search_word}%")).distinct
-    end
-    @users = @users.page(params[:page]).order(updated_at: :desc)
+    @users = @search_form.search.page(params[:page]).order(updated_at: :desc)
     render 'users/index'
   end
    
@@ -76,13 +69,13 @@ class UsersController < Base
     end
 
     def correct_user
-      if @current_user != User.find_by(id: params[:id]) && @current_user.admin? != true
+      if current_user != User.find_by(id: params[:id]) && current_user.admin? != true
         flash[:danger] = 'アクセス権がありません'
         redirect_to :root
       end
     end
 
     def logged_in_user_can_not_access_sign_up
-      redirect_to :root if @current_user
+      redirect_to :root if current_user
     end
 end

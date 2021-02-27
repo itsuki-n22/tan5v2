@@ -1,0 +1,7 @@
+
+<%= form_with model: :search_post_form, url: search_users_path, scope: :q, method: :get, local: true, class: 'form-inline my-2 my-lg-0'  do |f| %>
+  <%= f.text_field :search_word, placeholder: "ユーザー検索", class: 'form-control mr-sm-2' %>
+  <%= button_tag type: "submit", class: 'btn btn-outline-success btn-search my-2 my-sm-0' do %>
+    <i class="fas fa-search"></i>
+  <% end %>
+<% end %>

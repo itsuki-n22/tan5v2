@@ -38,6 +38,9 @@ class User < ApplicationRecord
   validates :email, presence: true, "valid_email_2/email": true,
                     uniqueness: true, length: { in: 1..48 }
 
+
+  scope :search_word_contain, -> (word){ where('LOWER(profile) LIKE ?', "%#{word.downcase}%").or( where('LOWER(name) LIKE ?', "%#{word.downcase}%")) }
+
   def unfavorite(wordnote)
     favorite_wordnotes.destroy(wordnote)
   end

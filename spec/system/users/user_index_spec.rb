@@ -16,9 +16,9 @@ describe 'User', type: :system, js: true do
       expect(all(:xpath, "//*[contains(@id, 'user-no-')]").size).to eq(10)
     end
 
-    example '文字列を含むユーザーのみが表示されること' do
+    example '文字列を含むユーザーのみが表示されること', check: true do
       within '#navbarSupportedContent' do
-        fill_in 'search_word', with: 'test'
+        fill_in 'q_search_word', with: 'test'
         find(:xpath, "//*[contains(@class, 'btn-outline-success')]").click
       end
       expect(all(:xpath, "//*[contains(@id, 'user-no-')]").size).to eq(2)
