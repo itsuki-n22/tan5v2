@@ -6,7 +6,7 @@
 
 ##  URL
 
-### **https://tan5.herokuapp.com/**  
+### **https://www.tan5.tech/**  
 
 ##  説明
 
@@ -34,4 +34,9 @@ docker-compose up
 
 
 ![explain](https://user-images.githubusercontent.com/54315732/108624353-d05b8d80-7487-11eb-8117-9963fd98d49a.gif)
+
+
+##  ER図
+  
+![erd](https://user-images.githubusercontent.com/54315732/110392563-7a543000-80ac-11eb-90c5-e29f4fefd58c.png)
 
