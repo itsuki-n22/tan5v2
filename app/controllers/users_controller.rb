@@ -13,8 +13,7 @@ class UsersController < Base
 
   def show
     @user = User.find(params[:id])
-    @wordnotes = User.find(params[:id]).wordnotes.includes(:user, :tangos, :favorites, :tango_configs)
-    @tango = @user.wordnotes.build.tangos.build
+    @wordnotes = User.find(params[:id]).wordnotes.includes(:tangos, :favorites)
     @favorite_wordnotes = @user.favorite_wordnotes.includes(:user, :tangos)
   end
 
