@@ -50,7 +50,7 @@
               <div class="modal__bg modal-close"></div>
               <div class="modal__content">
                 <div id="tango_register" class="container">
-                  <%= render "tangos/form" , tango: @tango, wordnotes: @wordnotes, current_user: @current_user %>
+                  <%= render "tangos/form" , tango: Tango.new, wordnotes: @wordnotes, current_user: @current_user %>
                 </div>
               </div>
             </div>

@@ -13,8 +13,9 @@
 #
 # Indexes
 #
-#  index_tango_data_on_tango_id  (tango_id)
-#  index_tango_data_on_user_id   (user_id)
+#  index_tango_data_on_tango_id              (tango_id)
+#  index_tango_data_on_user_id               (user_id)
+#  index_tango_data_on_user_id_and_tango_id  (user_id,tango_id) UNIQUE
 #
 FactoryBot.define do
   factory :tango_datum do

@@ -17,8 +17,9 @@
 #
 # Indexes
 #
-#  index_tango_configs_on_user_id      (user_id)
-#  index_tango_configs_on_wordnote_id  (wordnote_id)
+#  index_tango_configs_on_user_id                  (user_id)
+#  index_tango_configs_on_user_id_and_wordnote_id  (user_id,wordnote_id) UNIQUE
+#  index_tango_configs_on_wordnote_id              (wordnote_id)
 #
 # Foreign Keys
 #
