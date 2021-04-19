@@ -125,7 +125,7 @@ describe 'Wordnote', type: :system, js: true do
         expect(page).not_to have_content('閉じる')
       end
 
-      example '星の数による単語の絞り込みが機能していること' do
+      example '星の数による単語の絞り込みが機能していること', tag: true do
         expect{ 
           execute_script('$("#star-3").trigger("click")') # id="star-3" を持つ要素にhoverとclickの2つのイベントがあるとclickのイベントが機能しない。
           find(:xpath, '//*[@id="learn-operation"]/div[2]/div[4]').click

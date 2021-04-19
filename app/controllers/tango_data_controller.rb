@@ -26,6 +26,6 @@ class TangoDataController < Base
   private
 
   def data_params
-    params.permit(:tango_id, :trial_num, :wrong_num, :star)
+    params.permit(:tango_id, :trial_num, :wrong_num, :star, :id)
   end
 end

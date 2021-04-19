@@ -46,7 +46,7 @@ class TangoConfig < ApplicationRecord
 
   def tangos_by_config
     sorted_tangos.reject do |tango|
-      star = tango.tango_datum ? tango.tango_datum.star : 0
+      star = tango.tango_data.find_by(user_id: user_id) ? tango.tango_data.find_by(user_id: user_id).star : 0
       star < filter
     end
   end
